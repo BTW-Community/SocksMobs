@@ -32,32 +32,6 @@ public class SocksMobsEntitySquid extends FCEntitySquid {
         }
         else this.setSquidType(0);
     }
-
-	//removed preinit
-	
-    /**
-     * Called when the entity is attacked.
-     */
-    public boolean attackEntityFrom(DamageSource var1, int var2) {
-    	if (super.attackEntityFrom(var1, var2))
-        {
-            if (!this.worldObj.isRemote)
-            {
-                Entity var3 = var1.getEntity();
-
-                if (var3 != null && var3 != this)
-                {
-                    
-                }
-            }
-
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
     
     
 	/**
