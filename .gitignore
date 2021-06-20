@@ -243,7 +243,7 @@ src/minecraft/net/minecraft/src/BlockSandStone.java
 src/minecraft/net/minecraft/src/BlockSapling.java
 src/minecraft/net/minecraft/src/BlockSign.java
 src/minecraft/net/minecraft/src/BlockSilverfish.java
-src/minecraft/net/minecraft/src/BlockSkull.java
+
 src/minecraft/net/minecraft/src/BlockSnow.java
 src/minecraft/net/minecraft/src/BlockSnowBlock.java
 src/minecraft/net/minecraft/src/BlockSoulSand.java
