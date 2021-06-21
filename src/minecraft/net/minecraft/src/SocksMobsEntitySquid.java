@@ -9,6 +9,22 @@ public class SocksMobsEntitySquid extends FCEntitySquid {
     }
 	
 	/**
+     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
+     * use this to react to sunlight and start to burn.
+     */
+    public void onLivingUpdate()
+    {
+        super.onLivingUpdate();
+        
+        int worldTime = (int)(this.worldObj.worldInfo.getWorldTime() % 24000L);
+    	
+    	if (worldTime > 17500  && worldTime < 18500) //
+        {
+    		this.setSquidType(1);
+        }
+    }
+	
+	/**
      * Returns the texture's file path as a String.
      */
     public String getTexture()
@@ -28,7 +44,7 @@ public class SocksMobsEntitySquid extends FCEntitySquid {
     	
     	if (worldTime > 17500  && worldTime < 18500) //this.getRNG().nextInt(20) == 0  !this.worldObj.isDaytime() this.worldObj.getMoonPhase()
         {
-            this.setSquidType(1);
+    		this.setSquidType(1);
         }
         else this.setSquidType(0);
     }
@@ -42,13 +58,15 @@ public class SocksMobsEntitySquid extends FCEntitySquid {
     protected void dropFewItems(boolean var1, int var2)
     {	
 		//Ink Sacks
+		/**
 		int var3 = this.rand.nextInt(3 + var2) + 1;
 
         for (int var4 = 0; var4 < var3; ++var4)
         {
             this.entityDropItem(new ItemStack(Item.dyePowder, 1, 0), 0.0F);
         }
-        
+        */
+		
         //Shards 
         /**
         var3 = this.rand.nextInt(3 + var2) + 1;
@@ -67,10 +85,12 @@ public class SocksMobsEntitySquid extends FCEntitySquid {
         
         if (this.getSquidType() == 1 && this.worldObj.provider.dimensionId != -1) //not nether and normal squid
         {
-        	//Glowstone Dust
-            if (this.rand.nextInt(2) <= 1)
+        	///Glow Ink Sacks
+    		int var3 = this.rand.nextInt(3 + var2) + 1;
+
+            for (int var6 = 0; var6 < var3; ++var6)
             {
-                this.dropItem(Item.lightStoneDust.itemID, 1);
+                this.entityDropItem(new ItemStack(SocksMobsDefs.glowInk, 1, 0), 0.0F);
             }
         }
 

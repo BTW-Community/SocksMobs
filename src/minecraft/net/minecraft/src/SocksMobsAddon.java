@@ -21,9 +21,12 @@ public class SocksMobsAddon extends AddonExt {
 
 	@Override
 	public void Initialize() {
+		
 		AddEntityMappings();
 		ReplaceEntityMappings();
 		AddEntityRenderer();	
+		AddBiomeSpawn();
+		SocksMobsDefs.addDefinitions(); //add blocks and items
 	}
 	
 	public String GetLanguageFilePrefix()
@@ -33,13 +36,14 @@ public class SocksMobsAddon extends AddonExt {
 	
 	private void AddEntityMappings()
     {
+		
 		FCAddOnHandler.LogMessage(this.getName() + " Entities Loaded");
     }
 	
 	private void ReplaceEntityMappings()
     {
-		EntityList.ReplaceExistingMapping(SocksMobsEntitySquid.class, "Squid");
-		
+		//EntityList.replaceExistingMappingSafe(SocksMobsEntitySquid.class, "Squid");
+		EntityList.addMapping(SocksMobsEntitySquid.class, "GlowSquid", 202, 2243405, 7375001);
 		FCAddOnHandler.LogMessage(this.getName() + " Entities Replaced");
     }
 	
@@ -48,5 +52,13 @@ public class SocksMobsAddon extends AddonExt {
 		RenderManager.AddEntityRenderer(SocksMobsEntitySquid.class, new SocksMobsRenderSquid(new FCClientModelSquid()));
 		
 		FCAddOnHandler.LogMessage(this.getName() + " Models Loaded");
+    }
+	
+	private void AddBiomeSpawn()
+    {	
+		BiomeGenBase.ocean.getSpawnableList(EnumCreatureType.waterCreature).add(new SpawnListEntry(SocksMobsEntitySquid.class, 40, 4, 4));
+		BiomeGenBase.river.getSpawnableList(EnumCreatureType.waterCreature).add(new SpawnListEntry(SocksMobsEntitySquid.class, 40, 4, 4));
+		//<biome>.getSpawnableList(EnumCreatureType.<type>).add(new SpawnListEntry(<yourEntity>.class, <weight>, <maxNumber>, <minNumber>));
+		//BiomeGenBase.hell.getSpawnableList(EnumCreatureType.lavaCreature).add(new SpawnListEntry(SocksMobsEntitySquidLava.class, 100, 4, 4));
     }
 }
