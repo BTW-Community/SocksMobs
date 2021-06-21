@@ -36,14 +36,13 @@ public class SocksMobsAddon extends AddonExt {
 	
 	private void AddEntityMappings()
     {
-		
+		EntityList.addMapping(SocksMobsEntitySquid.class, "GlowSquid", 202, 0x164f4e, 0x4ddaba);
 		FCAddOnHandler.LogMessage(this.getName() + " Entities Loaded");
     }
 	
 	private void ReplaceEntityMappings()
     {
 		//EntityList.replaceExistingMappingSafe(SocksMobsEntitySquid.class, "Squid");
-		EntityList.addMapping(SocksMobsEntitySquid.class, "GlowSquid", 202, 2243405, 7375001);
 		FCAddOnHandler.LogMessage(this.getName() + " Entities Replaced");
     }
 	
