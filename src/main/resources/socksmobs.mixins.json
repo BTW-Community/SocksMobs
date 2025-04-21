@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "btw.community.sockthing.socksmobs.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "EntityPigMixin",
+    "RenderPigMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
