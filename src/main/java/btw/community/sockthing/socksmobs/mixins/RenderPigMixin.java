@@ -24,7 +24,7 @@ public abstract class RenderPigMixin {
     private static final ResourceLocation PIG_COLD_TEXTURE = new ResourceLocation("socksmobs:textures/entity/pig/cold_pig.png");
     private static final ResourceLocation PIG_COLD_FAMISHED_TEXTURE = new ResourceLocation("socksmobs:textures/entity/pig/cold_pig_famished.png");
     private static final ResourceLocation PIG_COLD_STARVING_TEXTURE = new ResourceLocation("socksmobs:textures/entity/pig/cold_pig_starving.png");
-    private static final ResourceLocation PIG_COLD_HARNESS_TEXTURE = new ResourceLocation("btw:textures/entity/mob/pig/cold_pig_harness.png");
+    private static final ResourceLocation PIG_COLD_HARNESS_TEXTURE = new ResourceLocation("socksmobs:textures/entity/mob/pig/cold_pig_harness.png");
 
     public RenderPigMixin(ModelBase model, float par2) {
         super();
