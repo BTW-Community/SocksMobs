@@ -4,6 +4,7 @@
   "package": "btw.community.sockthing.socksmobs.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "EntityEggMixin",
     "EntityPigMixin",
     "RenderPigMixin"
   ],
