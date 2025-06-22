@@ -8,9 +8,11 @@
     "EntityChickenMixin",
     "EntityEggMixin",
     "EntityPigMixin",
+    "EntityWolfMixin",
     "RenderChickenMixin",
     "RenderManagerMixin",
-    "RenderPigMixin"
+    "RenderPigMixin",
+    "RenderWolfMixin"
   ],
   "client": [
   ],

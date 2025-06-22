@@ -27,6 +27,5 @@ public class SocksMobsAddon extends BTWAddon {
 
         SMItems.initItems();
         EntityList.addMapping(EntityRooster.class, "Rooster", 700, 0xA1A1A1, 0xFF0000);
-
     }
 }

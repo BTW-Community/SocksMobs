@@ -76,6 +76,9 @@ public abstract class RenderChickenMixin {
     private ResourceLocation getBabyStarvingTexture(int type, int gender) {
         if (type == 1) return BABY_CHICK_GRAY_STARVING_TEXTURE;
         if (type == 2) return BABY_CHICK_DARK_STARVING_TEXTURE;
+
+
+
         return BABY_CHICK_STARVING_TEXTURE;
     }
 
