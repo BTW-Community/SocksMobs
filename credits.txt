@@ -1,0 +1,10 @@
+Sounds: (found in resources/assets/socksmobs/sound)
+
+rooster.ogg
+https://www.freesoundslibrary.com/rooster-crowing/
+Attribution 4.0 International (CC BY 4.0)
+
+babychick.ogg
+babychick_hurt.ogg
+https://www.freesoundslibrary.com/baby-chicks-chirping/
+Attribution 4.0 International (CC BY 4.0)

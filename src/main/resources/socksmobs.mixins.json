@@ -4,8 +4,12 @@
   "package": "btw.community.sockthing.socksmobs.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "EntityAnimalMixin",
+    "EntityChickenMixin",
     "EntityEggMixin",
     "EntityPigMixin",
+    "RenderChickenMixin",
+    "RenderManagerMixin",
     "RenderPigMixin"
   ],
   "client": [
