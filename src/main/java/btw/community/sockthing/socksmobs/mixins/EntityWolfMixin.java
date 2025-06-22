@@ -16,24 +16,59 @@ public abstract class EntityWolfMixin extends EntityTameable implements EntityAn
         super(par1World);
     }
 
-    @Override
-    public void preInitCreature() {
-        //biomes
-    }
-
     @Inject(method = "entityInit", at = @At(value = "TAIL"))
     public void entityInit(CallbackInfo ci) {
         this.dataWatcher.addObject(MobUtils.DATA_TYPE_ID, (byte)0);
     }
 
     @Override
+    public void preInitCreature() {
+        BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
+        this.setType(setTypeDependingOnBiome(currentBiome));
+    }
+
+    private int setTypeDependingOnBiome(BiomeGenBase currentBiome) {
+        int biomeID = currentBiome.biomeID;
+        if (biomeID == BiomeGenBase.taiga.biomeID) return EnumWolfType.PALE.getId();
+        if (biomeID == BiomeGenBase.taigaHills.biomeID) return EnumWolfType.PALE.getId();
+        else if (biomeID == BiomeGenBase.mushroomIsland.biomeID) return EnumWolfType.ASHEN.getId();
+        else if (biomeID == BiomeGenBase.mushroomIslandShore.biomeID) return EnumWolfType.ASHEN.getId();
+        else if (biomeID == BiomeGenBase.swampland.biomeID) return EnumWolfType.CHESTNUT.getId();
+        else if (biomeID == BiomeGenBase.jungle.biomeID) return EnumWolfType.RUSTY.getId();
+        else if (biomeID == BiomeGenBase.jungleHills.biomeID) return EnumWolfType.RUSTY.getId();
+        else if (biomeID == BiomeGenBase.icePlains.biomeID) return EnumWolfType.SNOWY.getId();
+        else if (biomeID == BiomeGenBase.frozenRiver.biomeID) return EnumWolfType.SNOWY.getId();
+        else if (biomeID == BiomeGenBase.extremeHills.biomeID) return EnumWolfType.SPOTTED.getId();
+        else if (biomeID == BiomeGenBase.extremeHillsEdge.biomeID) return EnumWolfType.SPOTTED.getId();
+        else if (biomeID == BiomeGenBase.desert.biomeID) return EnumWolfType.STRIPED.getId();
+        else if (biomeID == BiomeGenBase.desertHills.biomeID) return EnumWolfType.STRIPED.getId();
+        else if (biomeID == BiomeGenBase.forest.biomeID) return EnumWolfType.WOODS.getId();
+        else if (biomeID == BiomeGenBase.forestHills.biomeID) return EnumWolfType.WOODS.getId();
+        else return EnumWolfType.BLACK.getId();
+    }
+
+    @Override
+    protected void giveBirthAtTargetLocation(EntityAnimal targetMate, double dChildX, double dChildY, double dChildZ) {
+        int nestSize = this.getNestSize();
+        for (int nestTempCount = 0; nestTempCount < nestSize; ++nestTempCount) {
+            EntityAgeable childEntity = this.createChild(targetMate);
+            if (childEntity == null) continue;
+            childEntity.setGrowingAge(-this.getTicksForChildToGrow());
+            childEntity.setLocationAndAngles(dChildX, dChildY, dChildZ, this.rotationYaw, this.rotationPitch);
+
+            BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
+            ((EntityAnimalInterface) childEntity).setType(setTypeDependingOnBiome(currentBiome));
+
+            this.worldObj.spawnEntityInWorld(childEntity);
+        }
+    }
+
+    @Override
     public EntityLivingData onSpawnWithEgg(EntityLivingData data) {
         data = super.onSpawnWithEgg(data);
 
-        int totalTypes = EnumWolfType.values().length;
-        int type = this.getRNG().nextInt(totalTypes);
-
-        this.setType(type);
+        BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
+        this.setType(setTypeDependingOnBiome(currentBiome));
 
         return data;
     }
