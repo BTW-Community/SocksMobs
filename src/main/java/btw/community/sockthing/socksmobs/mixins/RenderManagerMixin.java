@@ -1,6 +1,7 @@
 package btw.community.sockthing.socksmobs.mixins;
 
 import btw.community.sockthing.socksmobs.entities.models.CustomModelChicken;
+import btw.community.sockthing.socksmobs.entities.models.CustomModelCow;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,6 +29,9 @@ public class RenderManagerMixin {
     private void onConstructed(CallbackInfo ci) {
         this.entityRenderMap.remove(EntityChicken.class, new RenderChicken(new ModelChicken(), 0.3f));
         this.entityRenderMap.put(EntityChicken.class, new RenderChicken(new CustomModelChicken(), 0.3f));
+
+        this.entityRenderMap.remove(EntityCow.class, new RenderCow(new ModelCow(), 0.7f));
+        this.entityRenderMap.put(EntityCow.class, new RenderCow(new CustomModelCow(), 0.7f));
     }
 
 }

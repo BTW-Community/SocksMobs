@@ -10,6 +10,7 @@
     "EntityPigMixin",
     "EntityWolfMixin",
     "RenderChickenMixin",
+    "RenderCowMixin",
     "RenderManagerMixin",
     "RenderPigMixin",
     "RenderWolfMixin"
