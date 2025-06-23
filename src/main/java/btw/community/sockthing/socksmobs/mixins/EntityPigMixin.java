@@ -1,6 +1,7 @@
 package btw.community.sockthing.socksmobs.mixins;
 
-import btw.community.sockthing.socksmobs.interfaces.EntityPigInterface;
+import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
+import btw.community.sockthing.socksmobs.utils.MobUtils;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -8,24 +9,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPig.class)
-public abstract class EntityPigMixin extends EntityAnimal implements EntityPigInterface {
-
-    private final int PIG_TYPE_DATA_WATCHER_INDEX = 13;
-
-    private final int NORMAL = 0;
-    private final int COLD = 1;
-    private final int WARM = 2;
+public abstract class EntityPigMixin extends EntityAnimal implements EntityAnimalInterface {
 
     public EntityPigMixin(World world) {
         super(world);
-    }
-
-    public int getPigType() {
-        return this.dataWatcher.getWatchableObjectByte(PIG_TYPE_DATA_WATCHER_INDEX);
-    }
-
-    public void setPigType(int pigType) {
-        this.dataWatcher.updateObject(PIG_TYPE_DATA_WATCHER_INDEX, (byte)pigType);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
@@ -35,18 +22,18 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityPigIn
 
     @Override
     public void preInitCreature() {
-        if (isColdBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setPigType(COLD);
-        else if (isWarmBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setPigType(WARM);
-        else setPigType(NORMAL);
+        if (isColdBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.COLD);
+        else if (isWarmBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.WARM);
+        else setType(MobUtils.NORMAL);
     }
 
     @Override
     public EntityLivingData onSpawnWithEgg(EntityLivingData data) {
         data = super.onSpawnWithEgg(data);
 
-        if (isColdBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setPigType(COLD);
-        else if (isWarmBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setPigType(WARM);
-        else setPigType(NORMAL);
+        if (isColdBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.COLD);
+        else if (isWarmBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.WARM);
+        else setType(MobUtils.NORMAL);
 
         return data;
     }
@@ -67,14 +54,6 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityPigIn
         return biome == BiomeGenBase.taiga;
     }
 
-//    @Inject(method = "spawnBabyAnimal", at = @At(value = "HEAD"), cancellable = true)
-//    public void spawnBabyAnimal(EntityAgeable parent, CallbackInfoReturnable<EntityPig> cir) {
-//        EntityPig thisPig = (EntityPig)(Object)this;
-//        EntityPig otherPig = (EntityPig) parent;
-//
-//        cir.setReturnValue( new EntityPig(this.worldObj) );
-//    }
-
     @Override
     public boolean entityAgeableInteract(EntityPlayer par1EntityPlayer) {
         ItemStack var2 = par1EntityPlayer.inventory.getCurrentItem();
@@ -87,8 +66,8 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityPigIn
                         var4.setGrowingAge(-this.getTicksForChildToGrow());
                         var4.setLocationAndAngles(this.posX, this.posY, this.posZ, 0.0F, 0.0F);
 
-                        EntityPigInterface childEntity = (EntityPigInterface) var4;
-                        childEntity.setPigType(this.getPigType());
+                        EntityAnimalInterface childEntity = (EntityAnimalInterface) var4;
+                        childEntity.setType(this.getType());
 
                         this.worldObj.spawnEntityInWorld(var4);
                         if (var2.hasDisplayName()) {
@@ -121,32 +100,41 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityPigIn
                 childEntity.setGrowingAge(-this.getTicksForChildToGrow());
                 childEntity.setLocationAndAngles(dChildX, dChildY, dChildZ, this.rotationYaw, this.rotationPitch);
 
-                setChildPigType((EntityPigInterface) targetMate, (EntityPigInterface) childEntity);
+                setChildPigType((EntityAnimalInterface) targetMate, (EntityAnimalInterface) childEntity);
 
                 this.worldObj.spawnEntityInWorld(childEntity);
             }
         }
     }
 
-    private void setChildPigType(EntityPigInterface targetMate, EntityPigInterface childEntity) {
-        int thisType = this.getPigType();
-        int otherType = targetMate.getPigType();
+    private void setChildPigType(EntityAnimalInterface targetMate, EntityAnimalInterface childEntity) {
+        int thisType = this.getType();
+        int otherType = targetMate.getType();
 
-        childEntity.setPigType(this.worldObj.rand.nextInt(2) == 0 ? thisType : otherType);
+        childEntity.setType(this.worldObj.rand.nextInt(2) == 0 ? thisType : otherType);
     }
+
+    // --- NBT --- //
 
     @Inject(method = "writeEntityToNBT", at = @At(value = "TAIL"))
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound, CallbackInfo ci) {
-        par1NBTTagCompound.setInteger("pigType", this.getPigType());
-
+        par1NBTTagCompound.setInteger("type", this.getType());
     }
 
     @Inject(method = "readEntityFromNBT", at = @At(value = "TAIL"))
     public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound, CallbackInfo ci) {
-        if (par1NBTTagCompound.hasKey("pigType")) {
-            int var2 = par1NBTTagCompound.getInteger("pigType");
-            this.setPigType(var2);
+        if (par1NBTTagCompound.hasKey("type")) {
+            this.setType(par1NBTTagCompound.getInteger("type"));
         }
+    }
+
+    // --- EntityAnimalInterface --- //
+
+    public int getType() {
+        return this.dataWatcher.getWatchableObjectByte(MobUtils.DATA_TYPE_ID);
+    }
+    public void setType(int type) {
+        this.dataWatcher.updateObject(MobUtils.DATA_TYPE_ID, (byte)type);
     }
 
 

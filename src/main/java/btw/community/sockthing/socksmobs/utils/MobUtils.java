@@ -21,4 +21,8 @@ public class MobUtils {
     public static final int MIN_DELAY_TIME = 600;
     public static final int MAX_DELAY_TIME = 1200;
 
+    public static final int NORMAL = 1;
+    public static final int COLD = 1;
+    public static final int WARM = 2;
+
 }
