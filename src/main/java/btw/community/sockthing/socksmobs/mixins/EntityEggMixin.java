@@ -1,15 +1,11 @@
 package btw.community.sockthing.socksmobs.mixins;
 
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
-import btw.community.sockthing.socksmobs.interfaces.EntityPigInterface;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Random;
 

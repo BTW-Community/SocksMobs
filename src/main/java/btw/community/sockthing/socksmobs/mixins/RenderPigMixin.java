@@ -1,7 +1,10 @@
 package btw.community.sockthing.socksmobs.mixins;
 
-import btw.community.sockthing.socksmobs.interfaces.EntityPigInterface;
-import net.minecraft.src.*;
+import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
+import net.minecraft.src.EntityPig;
+import net.minecraft.src.ModelBase;
+import net.minecraft.src.RenderPig;
+import net.minecraft.src.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,7 +35,7 @@ public abstract class RenderPigMixin {
 
     @Inject(method = "getPigTextures", at = @At(value = "HEAD"), cancellable = true)
     protected void getPigTextures(EntityPig pig, CallbackInfoReturnable<ResourceLocation> cir) {
-        int pigType = ((EntityPigInterface) pig).getPigType();
+        int pigType = ((EntityAnimalInterface) pig).getType();
 
         if (pig.getWearingBreedingHarness()) {
             cir.setReturnValue(getPigHarnessTexture(pigType));
