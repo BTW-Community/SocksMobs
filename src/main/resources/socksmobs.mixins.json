@@ -6,12 +6,15 @@
   "mixins": [
     "EntityAnimalMixin",
     "EntityChickenMixin",
+    "EntityCowMixin",
     "EntityEggMixin",
+    "EntityMooshroomMixin",
     "EntityPigMixin",
     "EntityWolfMixin",
     "RenderChickenMixin",
     "RenderCowMixin",
     "RenderManagerMixin",
+    "RenderMooshroomMixin",
     "RenderPigMixin",
     "RenderWolfMixin"
   ],

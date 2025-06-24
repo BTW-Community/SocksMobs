@@ -3,12 +3,12 @@ package btw.community.sockthing.socksmobs.entities.models;
 import btw.entity.mob.KickingAnimal;
 import net.minecraft.src.*;
 
-public class CustomModelCow extends ModelQuadruped {
+public class ModelWarmCow extends ModelQuadruped {
     private float headRotation;
     private final ModelRenderer snout;
-    private final ModelRenderer horns = new ModelRenderer(this);
+    private final ModelRenderer horns;
 
-    public CustomModelCow() {
+    public ModelWarmCow() {
         super(12, 0.0f);
         this.textureWidth = 64;
         this.textureHeight = 64;
@@ -18,20 +18,34 @@ public class CustomModelCow extends ModelQuadruped {
         this.head.setRotationPoint(0.0f, 4.0f, -8.0f);
 
         snout = new ModelRenderer(this);
-        snout.setRotationPoint(0.0F, 0.0F, 0.0F);
+        snout.setRotationPoint(0.0F, 20.0F, 2.0F);
         head.addChild(snout);
-        snout.setTextureOffset(28, 0).addBox(-3.0F, 1.0F, -7.0F, 6, 3, 1, 0.0F);
+        this.snout.setTextureOffset(28, 0).addBox(-3.0F, -19.0F, -9.0F, 6, 3, 1, 0.0F);
+
+        horns = new ModelRenderer(this);
+        horns.setRotationPoint(5.0F, -2.0F, -4.0F);
+        head.addChild(horns);
 
         this.body = new ModelRenderer(this, 18, 4);
         this.body.addBox(-6.0f, -10.0f, -7.0f, 12, 18, 10, 0.0f);
         this.body.setRotationPoint(0.0f, 5.0f, 2.0f);
-        this.body.setTextureOffset(52, 0).addBox(-2.0f, 2.0f, -8.0f, 4, 6, 1);
-        this.body.setTextureOffset(18, 36).addBox(-6.0f, -10.0f, -7.0f, 12, 18, 10, 0.25f);
+        this.body.setTextureOffset(52, 0).addBox(-2.0f, 2.0f, -8.0f, 4, 6, 1); //udder
 
-        this.leg1.setTextureOffset(0, 48).addBox(-2.0f, 0.0f, -2.0f, 4, 12, 4, 0.25f);
-        this.leg2.setTextureOffset(0, 48).addBox(-2.0f, 0.0f, -2.0f, 4, 12, 4, 0.25f);
-        this.leg3.setTextureOffset(0, 48).addBox(-2.0f, 0.0f, -2.0f, 4, 12, 4, 0.25f);
-        this.leg4.setTextureOffset(0, 48).addBox(-2.0f, 0.0f, -2.0f, 4, 12, 4, 0.25f);
+        leg1 = new ModelRenderer(this);
+        leg1.setRotationPoint(-3.0F, 12.0F, 7.0F);
+        this.leg1.setTextureOffset(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, 0.0F);
+
+        leg2 = new ModelRenderer(this);
+        leg2.setRotationPoint(3.0F, 12.0F, 7.0F);
+        this.leg2.setTextureOffset(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, 0.0F);
+
+        leg3 = new ModelRenderer(this);
+        leg3.setRotationPoint(-3.0F, 12.0F, -6.0F);
+        this.leg3.setTextureOffset(0, 16).addBox(-2.0F, 0.0F, -1.0F, 4, 12, 4, 0.0F);
+
+        leg4 = new ModelRenderer(this);
+        leg4.setRotationPoint(3.0F, 12.0F, -6.0F);
+        this.leg4.setTextureOffset(0, 16).addBox(-2.0F, 0.0F, -1.0F, 4, 12, 4, 0.0F);
 
         this.leg1.rotationPointX -= 1.0f;
         this.leg2.rotationPointX += 1.0f;
@@ -46,13 +60,12 @@ public class CustomModelCow extends ModelQuadruped {
 
     @Override
     public void render(Entity entity, float f, float g, float h, float i, float j, float k) {
-        if (!this.isChild){
-            horns.setRotationPoint(0.0F, 0.0F, 0.0F);
-            head.addChild(horns);
-            horns.setTextureOffset(22, 0).addBox(-5.0f, -5.0f, -4.0f, 1, 3, 1, 0.0f);
-            horns.setTextureOffset(22, 0).addBox(4.0f, -5.0f, -4.0f, 1, 3, 1, 0.0f);
+        if (!this.isChild) {
+            this.horns.setTextureOffset(52, 10).addBox(-1.0F, -1.0F, -1.0F, 4, 2, 2, 0.0F);
+            this.horns.setTextureOffset(52, 10).addBox(-13.0F, -1.0F, -1.0F, 4, 2, 2, 0.0F);
+            this.horns.setTextureOffset(56, 6).addBox(1.0F, -3.0F, -1.0F, 2, 2, 2, 0.0F);
+            this.horns.setTextureOffset(56, 6).addBox(-13.0F, -3.0F, -1.0F, 2, 2, 2, 0.0F);
         }
-
         super.render(entity, f, g, h, i, j, k);
     }
 
@@ -69,6 +82,15 @@ public class CustomModelCow extends ModelQuadruped {
         super.setRotationAngles(par1, par2, par3, par4, par5, par6, entity);
         this.adjustRotationAnglesForKickAttack(entity);
         this.head.rotateAngleX = this.headRotation;
+    }
+
+    /**
+     *	Sets the rotation of a ModelRenderer. Only called if the ModelRenderer has a rotation
+     */
+    public void setRotation(ModelRenderer modelRenderer, float x, float y, float z) {
+        modelRenderer.rotateAngleX = x;
+        modelRenderer.rotateAngleY = y;
+        modelRenderer.rotateAngleZ = z;
     }
 
     private void adjustRotationAnglesForKickAttack(Entity entity) {

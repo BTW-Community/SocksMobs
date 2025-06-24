@@ -1,5 +1,7 @@
 package btw.community.sockthing.socksmobs.utils;
 
+import net.minecraft.src.BiomeGenBase;
+
 public class MobUtils {
     // CHICKEN
     public static final int DATA_TYPE_ID = 31;
@@ -24,5 +26,23 @@ public class MobUtils {
     public static final int NORMAL = 1;
     public static final int COLD = 1;
     public static final int WARM = 2;
+
+    public static final int MILKA = 1;
+
+    public static boolean isWarmBiome(BiomeGenBase biome) {
+        if (biome == BiomeGenBase.jungle) return true;
+        if (biome == BiomeGenBase.jungleHills) return true;
+        if (biome == BiomeGenBase.desertHills) return true;
+        return biome == BiomeGenBase.desert;
+    }
+
+    public static boolean isColdBiome(BiomeGenBase biome) {
+        if (biome == BiomeGenBase.iceMountains) return true;
+        if (biome == BiomeGenBase.icePlains) return true;
+        if (biome == BiomeGenBase.frozenOcean) return true;
+        if (biome == BiomeGenBase.frozenRiver) return true;
+        if (biome == BiomeGenBase.taigaHills) return true;
+        return biome == BiomeGenBase.taiga;
+    }
 
 }

@@ -1,6 +1,6 @@
 package btw.community.sockthing.socksmobs.mixins;
 
-import btw.community.sockthing.socksmobs.enums.EnumWolfType;
+import btw.community.sockthing.socksmobs.enums.WolfType;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
 import net.minecraft.src.*;
@@ -24,27 +24,27 @@ public abstract class EntityWolfMixin extends EntityTameable implements EntityAn
     @Override
     public void preInitCreature() {
         BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
-        this.setType(setTypeDependingOnBiome(currentBiome));
+        this.setType( getTypeDependingOnBiome(currentBiome).ordinal() );
     }
 
-    private int setTypeDependingOnBiome(BiomeGenBase currentBiome) {
+    private WolfType getTypeDependingOnBiome(BiomeGenBase currentBiome) {
         int biomeID = currentBiome.biomeID;
-        if (biomeID == BiomeGenBase.taiga.biomeID) return EnumWolfType.PALE.getId();
-        if (biomeID == BiomeGenBase.taigaHills.biomeID) return EnumWolfType.PALE.getId();
-        else if (biomeID == BiomeGenBase.mushroomIsland.biomeID) return EnumWolfType.ASHEN.getId();
-        else if (biomeID == BiomeGenBase.mushroomIslandShore.biomeID) return EnumWolfType.ASHEN.getId();
-        else if (biomeID == BiomeGenBase.swampland.biomeID) return EnumWolfType.CHESTNUT.getId();
-        else if (biomeID == BiomeGenBase.jungle.biomeID) return EnumWolfType.RUSTY.getId();
-        else if (biomeID == BiomeGenBase.jungleHills.biomeID) return EnumWolfType.RUSTY.getId();
-        else if (biomeID == BiomeGenBase.icePlains.biomeID) return EnumWolfType.SNOWY.getId();
-        else if (biomeID == BiomeGenBase.frozenRiver.biomeID) return EnumWolfType.SNOWY.getId();
-        else if (biomeID == BiomeGenBase.extremeHills.biomeID) return EnumWolfType.SPOTTED.getId();
-        else if (biomeID == BiomeGenBase.extremeHillsEdge.biomeID) return EnumWolfType.SPOTTED.getId();
-        else if (biomeID == BiomeGenBase.desert.biomeID) return EnumWolfType.STRIPED.getId();
-        else if (biomeID == BiomeGenBase.desertHills.biomeID) return EnumWolfType.STRIPED.getId();
-        else if (biomeID == BiomeGenBase.forest.biomeID) return EnumWolfType.WOODS.getId();
-        else if (biomeID == BiomeGenBase.forestHills.biomeID) return EnumWolfType.WOODS.getId();
-        else return EnumWolfType.BLACK.getId();
+        if (biomeID == BiomeGenBase.taiga.biomeID) return WolfType.PALE;
+        if (biomeID == BiomeGenBase.taigaHills.biomeID) return WolfType.PALE;
+        else if (biomeID == BiomeGenBase.mushroomIsland.biomeID) return WolfType.ASHEN;
+        else if (biomeID == BiomeGenBase.mushroomIslandShore.biomeID) return WolfType.ASHEN;
+        else if (biomeID == BiomeGenBase.swampland.biomeID) return WolfType.CHESTNUT;
+        else if (biomeID == BiomeGenBase.jungle.biomeID) return WolfType.RUSTY;
+        else if (biomeID == BiomeGenBase.jungleHills.biomeID) return WolfType.RUSTY;
+        else if (biomeID == BiomeGenBase.icePlains.biomeID) return WolfType.SNOWY;
+        else if (biomeID == BiomeGenBase.frozenRiver.biomeID) return WolfType.SNOWY;
+        else if (biomeID == BiomeGenBase.extremeHills.biomeID) return WolfType.SPOTTED;
+        else if (biomeID == BiomeGenBase.extremeHillsEdge.biomeID) return WolfType.SPOTTED;
+        else if (biomeID == BiomeGenBase.desert.biomeID) return WolfType.STRIPED;
+        else if (biomeID == BiomeGenBase.desertHills.biomeID) return WolfType.STRIPED;
+        else if (biomeID == BiomeGenBase.forest.biomeID) return WolfType.WOODS;
+        else if (biomeID == BiomeGenBase.forestHills.biomeID) return WolfType.WOODS;
+        else return WolfType.BLACK;
     }
 
     @Override
@@ -57,7 +57,7 @@ public abstract class EntityWolfMixin extends EntityTameable implements EntityAn
             childEntity.setLocationAndAngles(dChildX, dChildY, dChildZ, this.rotationYaw, this.rotationPitch);
 
             BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
-            ((EntityAnimalInterface) childEntity).setType(setTypeDependingOnBiome(currentBiome));
+            ((EntityAnimalInterface) childEntity).setType( getTypeDependingOnBiome(currentBiome).ordinal() );
 
             this.worldObj.spawnEntityInWorld(childEntity);
         }
@@ -68,7 +68,7 @@ public abstract class EntityWolfMixin extends EntityTameable implements EntityAn
         data = super.onSpawnWithEgg(data);
 
         BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
-        this.setType(setTypeDependingOnBiome(currentBiome));
+        this.setType( getTypeDependingOnBiome(currentBiome).ordinal() );
 
         return data;
     }

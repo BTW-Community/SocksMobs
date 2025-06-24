@@ -32,6 +32,9 @@ public class RenderManagerMixin {
 
         this.entityRenderMap.remove(EntityCow.class, new RenderCow(new ModelCow(), 0.7f));
         this.entityRenderMap.put(EntityCow.class, new RenderCow(new CustomModelCow(), 0.7f));
+
+        this.entityRenderMap.remove(EntityMooshroom.class, new RenderMooshroom(new ModelCow(), 0.7f));
+        this.entityRenderMap.put(EntityMooshroom.class, new RenderMooshroom(new CustomModelCow(), 0.7f));
     }
 
 }

@@ -15,15 +15,15 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
         super(world);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void onConstructed(World world, CallbackInfo ci) {
-        this.dataWatcher.addObject(13, (byte)0);
+    @Inject(method = "entityInit", at = @At("TAIL"))
+    protected void entityInit(CallbackInfo ci) {
+        this.dataWatcher.addObject(MobUtils.DATA_TYPE_ID, (byte) 0);
     }
 
     @Override
     public void preInitCreature() {
-        if (isColdBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.COLD);
-        else if (isWarmBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.WARM);
+        if (MobUtils.isColdBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.COLD);
+        else if (MobUtils.isWarmBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.WARM);
         else setType(MobUtils.NORMAL);
     }
 
@@ -31,28 +31,14 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
     public EntityLivingData onSpawnWithEgg(EntityLivingData data) {
         data = super.onSpawnWithEgg(data);
 
-        if (isColdBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.COLD);
-        else if (isWarmBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.WARM);
+        if (MobUtils.isColdBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.COLD);
+        else if (MobUtils.isWarmBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.WARM);
         else setType(MobUtils.NORMAL);
 
         return data;
     }
 
-    private boolean isWarmBiome(BiomeGenBase biome) {
-        if (biome == BiomeGenBase.jungle) return true;
-        if (biome == BiomeGenBase.jungleHills) return true;
-        if (biome == BiomeGenBase.desertHills) return true;
-        return biome == BiomeGenBase.desert;
-    }
 
-    private boolean isColdBiome(BiomeGenBase biome) {
-        if (biome == BiomeGenBase.iceMountains) return true;
-        if (biome == BiomeGenBase.icePlains) return true;
-        if (biome == BiomeGenBase.frozenOcean) return true;
-        if (biome == BiomeGenBase.frozenRiver) return true;
-        if (biome == BiomeGenBase.taigaHills) return true;
-        return biome == BiomeGenBase.taiga;
-    }
 
     @Override
     public boolean entityAgeableInteract(EntityPlayer par1EntityPlayer) {
