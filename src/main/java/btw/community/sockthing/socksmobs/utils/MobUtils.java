@@ -7,6 +7,7 @@ public class MobUtils {
     public static final int DATA_PREGNANT_ID = 29;
     public static final int DATA_AMOUNT_ID = 28;
     public static final int DATA_DELAY_ID = 27;
+    public static final int DATA_EXTRA_STATE_ID = 26;
 
     public static final int SPAWN_TYPE_CHANCE = 3;
     public static final int SPAWN_GENDER_CHANCE = 4;

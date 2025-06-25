@@ -16,4 +16,7 @@ public interface EntityAnimalInterface {
 
     void setDelayTimer(int delaytimer);
     int getDelayTimer();
+
+    void setExtraState(int extraState);
+    int getExtraState();
 }

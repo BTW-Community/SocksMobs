@@ -10,59 +10,66 @@ import java.util.Map;
 
 public class AnimalTextureRegistry {
     private static final Map<AnimalTextureKey, ResourceLocation> TEXTURE_CACHE = new HashMap<>();
-    public record AnimalTextureKey(String animal, String animalName, Enum<?> subtype, Enum<?> state) {}
+    public record AnimalTextureKey(String animal, String animalName, Enum<?> subtype, Enum<?> state, Enum<?> extraStata) {}
 
     static {
         for (WolfType subtype : WolfType.values()) {
             for (WolfState state : WolfState.values()) {
-                AnimalTextureKey key = setAnimalTextureKey("wolf", subtype, state);
-                TEXTURE_CACHE.put(key, buildTexture("wolf", subtype, state));
+                AnimalTextureKey key = setAnimalTextureKey("wolf", subtype, state, null);
+                TEXTURE_CACHE.put(key, buildTexture("wolf", subtype, state, null));
             }
         }
 
         for (ChickenType subtype : ChickenType.values()) {
             for (AnimalState state : AnimalState.values()) {
-                AnimalTextureKey key1 = setAnimalTextureKey("chicken", subtype, state);
-                AnimalTextureKey key2 = setAnimalTextureKey("chicken", "rooster", subtype, state);
-                AnimalTextureKey key3 = setAnimalTextureKey("chicken", "baby_chick", subtype, state);
-                TEXTURE_CACHE.put(key1, buildTexture("chicken", subtype, state));
-                TEXTURE_CACHE.put(key2, buildTexture("chicken", "rooster", subtype, state));
-                TEXTURE_CACHE.put(key3, buildTexture("chicken", "baby_chick", subtype, state));
+                AnimalTextureKey key1 = setAnimalTextureKey("chicken", subtype, state, null);
+                AnimalTextureKey key2 = setAnimalTextureKey("chicken", "rooster", subtype, state, null);
+                AnimalTextureKey key3 = setAnimalTextureKey("chicken", "baby_chick", subtype, state, null);
+                TEXTURE_CACHE.put(key1, buildTexture("chicken", subtype, state, null));
+                TEXTURE_CACHE.put(key2, buildTexture("chicken", "rooster", subtype, state, null));
+                TEXTURE_CACHE.put(key3, buildTexture("chicken", "baby_chick", subtype, state, null));
             }
         }
 
         for (PigType subtype : PigType.values()) {
             for (AnimalState state : AnimalState.values()) {
-                AnimalTextureKey key = setAnimalTextureKey("pig", subtype, state);
-                TEXTURE_CACHE.put(key, buildTexture("pig", subtype, state));
+                for (PigExtraState extraState : PigExtraState.values()) {
+                    AnimalTextureKey key = setAnimalTextureKey("pig", subtype, state, extraState);
+                    TEXTURE_CACHE.put(key, buildTexture("pig", subtype, state, extraState));
+                }
             }
         }
     }
 
     @NotNull
-    private static AnimalTextureKey setAnimalTextureKey(String animal, String animalName, Enum<?> subtype, Enum<?> state) {
-        if (animalName == null){
-            return new AnimalTextureKey(animal, animal, subtype, state);
-        }
-        return new AnimalTextureKey(animal, animalName, subtype, state);
+    private static AnimalTextureKey setAnimalTextureKey(String animal, String animalName, Enum<?> subtype, Enum<?> state, Enum<?> extraStata) {
+        return new AnimalTextureKey(animal, animalName, subtype, state, extraStata);
     }
 
-    private static AnimalTextureKey setAnimalTextureKey(String animal, Enum<?> subtype, Enum<?> state) {
-        return setAnimalTextureKey(animal, null, subtype, state);
+    private static AnimalTextureKey setAnimalTextureKey(String animal, Enum<?> subtype, Enum<?> state, Enum<?> extraState) {
+        return setAnimalTextureKey(animal, animal, subtype, state, extraState);
     }
 
-    private static ResourceLocation buildTexture(String animal, Enum<?> subtype, Enum<?> state) {
-        return buildTexture(animal, animal, subtype, state);
+    private static ResourceLocation buildTexture(String animal, Enum<?> subtype, Enum<?> state, Enum<?> extraState) {
+        return buildTexture(animal, animal, subtype, state, extraState);
     }
 
-    private static ResourceLocation buildTexture(String animal, String animalName, Enum<?> subtype, Enum<?> state) {
+    private static ResourceLocation buildTexture(String animal, String animalName, Enum<?> subtype, Enum<?> state, Enum<?> extraState) {
         StringBuilder path = new StringBuilder("socksmobs:textures/entity/")
                 .append(animal.toLowerCase()).append("/");
 
         path.append(animalName.toLowerCase());
 
+        // -- Exceptions -- //
         if (subtype != null && !subtype.name().equalsIgnoreCase("default")) {
             path.append("_").append(subtype.name().toLowerCase());
+        }
+
+        //Muddy Pig has a wet and dry state
+        if (subtype != null && extraState != null
+                && animal.equalsIgnoreCase("pig") && subtype.name().equalsIgnoreCase("muddy"))
+        {
+            path.append("_").append(extraState.name().toLowerCase());
         }
 
         if (state != null && !state.name().equalsIgnoreCase("normal")) {
@@ -76,8 +83,8 @@ public class AnimalTextureRegistry {
         return new ResourceLocation(path.toString());
     }
 
-    public static ResourceLocation getTexture(String animal, String animalName, Enum<?> subtype, Enum<?> state) {
-        return TEXTURE_CACHE.get(new AnimalTextureKey(animal, animalName, subtype, state));
+    public static ResourceLocation getTexture(String animal, String animalName, Enum<?> subtype, Enum<?> state, Enum<?> extraState) {
+        return TEXTURE_CACHE.get(new AnimalTextureKey(animal, animalName, subtype, state, extraState));
     }
 }
 

@@ -1,16 +1,23 @@
 package btw.community.sockthing.socksmobs.mixins;
 
+import btw.community.sockthing.socksmobs.enums.PigExtraState;
 import btw.community.sockthing.socksmobs.enums.PigType;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPig.class)
 public abstract class EntityPigMixin extends EntityAnimal implements EntityAnimalInterface {
+
+    @Shadow protected abstract void dropFewItems(boolean bKilledByPlayer, int iLootingModifier);
+
+    private int dryingTimer = 0;
+    private boolean wasInWaterLastTick = false;
 
     public EntityPigMixin(World world) {
         super(world);
@@ -19,14 +26,15 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
     @Inject(method = "entityInit", at = @At(value = "TAIL"))
     public void entityInit(CallbackInfo ci) {
         this.dataWatcher.addObject(MobUtils.DATA_TYPE_ID, (byte)0);
+        this.dataWatcher.addObject(MobUtils.DATA_EXTRA_STATE_ID, (byte)0);
     }
 
     @Override
     public void preInitCreature() {
-        BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
-        if (isColdBiome(currentBiome)) setType(PigType.COLD.ordinal());
-        else if (isWarmBiome(currentBiome)) setType(PigType.WARM.ordinal());
-        else setType(PigType.DEFAULT.ordinal());
+//        BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
+//        if (isColdBiome(currentBiome)) setType(PigType.COLD.ordinal());
+//        else if (isWarmBiome(currentBiome)) setType(PigType.WARM.ordinal());
+//        else setType(PigType.DEFAULT.ordinal());
     }
 
     private boolean isWarmBiome(BiomeGenBase biome) {
@@ -43,6 +51,39 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
         if (biome == BiomeGenBase.frozenRiver) return true;
         if (biome == BiomeGenBase.taigaHills) return true;
         return biome == BiomeGenBase.taiga;
+    }
+
+    @Override
+    public void onLivingUpdate() {
+        super.onLivingUpdate();
+        EntityPig thisPig = (EntityPig)(Object)this;
+        EntityAnimalInterface pig = ((EntityAnimalInterface) thisPig);
+
+        if (!this.worldObj.isRemote && pig.getType() == PigType.MUDDY.ordinal()){
+
+            boolean inWaterNow = this.isInWater();
+            if (inWaterNow) {
+                if (pig.getExtraState() == PigExtraState.DRY.ordinal()) {
+                    pig.setExtraState(PigExtraState.WET.ordinal());
+                }
+
+                this.dryingTimer = 5200; // Reset drying timer while in water
+            } else {
+                // Only start drying logic if pig was in water previously and now is not
+                if (pig.getExtraState() == PigExtraState.WET.ordinal()) {
+                    if (this.dryingTimer > 0) {
+                        --this.dryingTimer;
+                    }
+
+                    if (this.dryingTimer == 0) {
+                        pig.setExtraState(PigExtraState.DRY.ordinal());
+                    }
+                }
+            }
+
+            // Update for next tick
+            wasInWaterLastTick = inWaterNow;
+        }
     }
 
     @Override
@@ -110,12 +151,20 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
     @Inject(method = "writeEntityToNBT", at = @At(value = "TAIL"))
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound, CallbackInfo ci) {
         par1NBTTagCompound.setInteger("type", this.getType());
+        par1NBTTagCompound.setInteger("extraState", this.getExtraState());
+        par1NBTTagCompound.setInteger("dryingTimer", this.dryingTimer);
     }
 
     @Inject(method = "readEntityFromNBT", at = @At(value = "TAIL"))
     public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound, CallbackInfo ci) {
         if (par1NBTTagCompound.hasKey("type")) {
             this.setType(par1NBTTagCompound.getInteger("type"));
+        }
+        if (par1NBTTagCompound.hasKey("extraState")) {
+            this.setExtraState(par1NBTTagCompound.getInteger("extraState"));
+        }
+        if (par1NBTTagCompound.hasKey("dryingTimer")) {
+            this.dryingTimer = par1NBTTagCompound.getInteger("dryingTimer");
         }
     }
 
@@ -126,6 +175,13 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
     }
     public void setType(int type) {
         this.dataWatcher.updateObject(MobUtils.DATA_TYPE_ID, (byte)type);
+    }
+
+    public int getExtraState() {
+        return this.dataWatcher.getWatchableObjectByte(MobUtils.DATA_EXTRA_STATE_ID);
+    }
+    public void setExtraState(int extraState) {
+        this.dataWatcher.updateObject(MobUtils.DATA_EXTRA_STATE_ID, (byte)extraState);
     }
 
 
