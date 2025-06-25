@@ -1,5 +1,6 @@
 package btw.community.sockthing.socksmobs.mixins;
 
+import btw.community.sockthing.socksmobs.enums.PigType;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
 import net.minecraft.src.*;
@@ -15,27 +16,17 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
         super(world);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void onConstructed(World world, CallbackInfo ci) {
-        this.dataWatcher.addObject(13, (byte)0);
+    @Inject(method = "entityInit", at = @At(value = "TAIL"))
+    public void entityInit(CallbackInfo ci) {
+        this.dataWatcher.addObject(MobUtils.DATA_TYPE_ID, (byte)0);
     }
 
     @Override
     public void preInitCreature() {
-        if (isColdBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.COLD);
-        else if (isWarmBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.WARM);
-        else setType(MobUtils.NORMAL);
-    }
-
-    @Override
-    public EntityLivingData onSpawnWithEgg(EntityLivingData data) {
-        data = super.onSpawnWithEgg(data);
-
-        if (isColdBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.COLD);
-        else if (isWarmBiome(this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ))) setType(MobUtils.WARM);
-        else setType(MobUtils.NORMAL);
-
-        return data;
+        BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
+        if (isColdBiome(currentBiome)) setType(PigType.COLD.ordinal());
+        else if (isWarmBiome(currentBiome)) setType(PigType.WARM.ordinal());
+        else setType(PigType.DEFAULT.ordinal());
     }
 
     private boolean isWarmBiome(BiomeGenBase biome) {

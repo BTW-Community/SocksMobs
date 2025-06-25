@@ -1,7 +1,7 @@
 package btw.community.sockthing.socksmobs.enums;
 
-public enum EnumWolfState {
-    WILD,
+public enum WolfState {
+    NORMAL,
     WILD_STARVING,
     TAME,
     TAME_STARVING,

@@ -8,3 +8,43 @@ babychick.ogg
 babychick_hurt.ogg
 https://www.freesoundslibrary.com/baby-chicks-chirping/
 Attribution 4.0 International (CC BY 4.0)
+
+---
+Textures: (found in resources/assets/socksmobs/textures)
+Minecraft 1.21.5
+https://www.minecraft.net/en-us/eula
+
+wolf.png
+wolf_tame.png
+wolf_angry.png
+wolf_ashen.png
+wolf_ashen_tame.png
+wolf_ashen_angry.png
+wolf_black.png
+wolf_black_tame.png
+wolf_black_angry.png
+wolf_chestnut.png
+wolf_chestnut_tame.png
+wolf_chestnut_angry.png
+wolf_rusty.png
+wolf_rusty_tame.png
+wolf_rusty_angry.png
+wolf_snowy.png
+wolf_snowy_tame.png
+wolf_snowy_angry.png
+wolf_spotted.png
+wolf_spotted_tame.png
+wolf_spotted_angry.png
+wolf_striped.png
+wolf_striped_tame.png
+wolf_striped_angry.png
+wolf_woods.png
+wolf_woods_tame.png
+wolf_woods_angry.png
+
+chicken_dark.png
+chicken_orange.png
+
+pig.png
+pig_warm.png
+pig_cold.png

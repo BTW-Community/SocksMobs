@@ -49,7 +49,16 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
 
     @Override
     public void preInitCreature() {
-        //biomes
+        int type = this.worldObj.rand.nextInt(MobUtils.SPAWN_TYPE_CHANCE);
+        boolean shouldBeMale = this.worldObj.rand.nextInt(MobUtils.SPAWN_GENDER_CHANCE) == 0;
+
+        setType(type);
+
+        EntityChicken thisObject = (EntityChicken)(Object)this;
+        if (shouldBeMale || thisObject instanceof EntityRooster){
+            this.setGender(MobUtils.MALE);
+        }
+        else this.setGender(MobUtils.FEMALE);
     }
 
     @Override
@@ -60,24 +69,6 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
         this.dataWatcher.addObject(MobUtils.DATA_PREGNANT_ID, (byte)0);
         this.dataWatcher.addObject(MobUtils.DATA_AMOUNT_ID, (byte)0);
         this.dataWatcher.addObject(MobUtils.DATA_DELAY_ID, 0);
-    }
-
-    @Override
-    public EntityLivingData onSpawnWithEgg(EntityLivingData data) {
-        data = super.onSpawnWithEgg(data);
-
-        int type = this.getRNG().nextInt(MobUtils.SPAWN_TYPE_CHANCE);
-        boolean shouldBeMale = this.getRNG().nextInt(MobUtils.SPAWN_GENDER_CHANCE) == 0;
-
-        setType(type);
-
-        EntityChicken thisObject = (EntityChicken)(Object)this;
-        if (shouldBeMale || thisObject instanceof EntityRooster){
-            this.setGender(MobUtils.MALE);
-        }
-        else this.setGender(MobUtils.FEMALE);
-
-        return data;
     }
 
     // --- Breeding --- //

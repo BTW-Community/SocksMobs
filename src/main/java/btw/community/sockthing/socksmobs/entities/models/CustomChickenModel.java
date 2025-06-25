@@ -6,7 +6,7 @@ package btw.community.sockthing.socksmobs.entities.models;
 import net.minecraft.src.*;
 import org.lwjgl.opengl.GL11;
 
-public class CustomModelChicken extends ModelChicken {
+public class CustomChickenModel extends ModelChicken {
     public ModelRenderer head;
     public ModelRenderer hawk;
     public ModelRenderer body;
@@ -20,7 +20,7 @@ public class CustomModelChicken extends ModelChicken {
     public ModelRenderer chin;
     private float headRotation;
 
-    public CustomModelChicken() {
+    public CustomChickenModel() {
         int var1 = 16;
         this.head = new ModelRenderer(this, 0, 0);
         this.head.addBox(-2.0f, -6.0f, -2.0f, 4, 6, 3, 0.0f);

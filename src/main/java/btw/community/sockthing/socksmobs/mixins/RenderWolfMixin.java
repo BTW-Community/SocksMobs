@@ -1,8 +1,9 @@
 package btw.community.sockthing.socksmobs.mixins;
 
-import btw.community.sockthing.socksmobs.enums.EnumWolfState;
+import btw.community.sockthing.socksmobs.enums.WolfState;
+import btw.community.sockthing.socksmobs.enums.WolfType;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
-import btw.community.sockthing.socksmobs.utils.WolfTextureManager;
+import btw.community.sockthing.socksmobs.utils.AnimalTextureManager;
 import net.minecraft.src.EntityWolf;
 import net.minecraft.src.RenderWolf;
 import net.minecraft.src.ResourceLocation;
@@ -16,25 +17,27 @@ public class RenderWolfMixin {
 
     @Inject(method = "func_110914_a", at = @At(value = "HEAD"), cancellable = true)
     protected void getWolfTextures(EntityWolf wolf, CallbackInfoReturnable<ResourceLocation> cir) {
-        int type = ((EntityAnimalInterface) wolf).getType();
+        int subtype = ((EntityAnimalInterface) wolf).getType();
 
         if (wolf.isTamed()) {
             if (wolf.isStarving()) {
-                cir.setReturnValue( WolfTextureManager.getTexture(type, EnumWolfState.TAME_STARVING) );
+                cir.setReturnValue( AnimalTextureManager.getWolfTexture(subtype, WolfState.TAME_STARVING) );
                 cir.cancel();
             }
-            cir.setReturnValue( WolfTextureManager.getTexture(type, EnumWolfState.TAME) );
+            cir.setReturnValue( AnimalTextureManager.getWolfTexture(subtype, WolfState.TAME) );
             cir.cancel();
         }
         if (wolf.isAngry()) {
-            cir.setReturnValue( WolfTextureManager.getTexture(type, EnumWolfState.ANGRY) );
+            cir.setReturnValue( AnimalTextureManager.getWolfTexture(subtype, WolfState.ANGRY) );
             cir.cancel();
         }
         if (wolf.isStarving() || wolf.hasAttackTarget()) {
-            cir.setReturnValue( WolfTextureManager.getTexture(type, EnumWolfState.WILD_STARVING) );
+            cir.setReturnValue( AnimalTextureManager.getWolfTexture(subtype, WolfState.WILD_STARVING) );
             cir.cancel();
         }
-        cir.setReturnValue(wolf.isTamed() ? WolfTextureManager.getTexture(type, EnumWolfState.TAME) : (wolf.isAngry() ? WolfTextureManager.getTexture(type, EnumWolfState.ANGRY) : WolfTextureManager.getTexture(type, EnumWolfState.WILD)));
+        cir.setReturnValue(wolf.isTamed() ? AnimalTextureManager.getWolfTexture(subtype, WolfState.TAME) :
+                (wolf.isAngry() ? AnimalTextureManager.getWolfTexture(subtype, WolfState.ANGRY) :
+                        AnimalTextureManager.getWolfTexture(subtype, WolfState.NORMAL)));
         cir.cancel();
     }
 }
