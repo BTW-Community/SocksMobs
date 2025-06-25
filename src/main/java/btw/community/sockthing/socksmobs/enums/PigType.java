@@ -5,5 +5,6 @@ public enum PigType {
     COLD,
     WARM,
     MUDDY,
-    MOTTLED;
+    MOTTLED,
+    SPOTTED;
 }
