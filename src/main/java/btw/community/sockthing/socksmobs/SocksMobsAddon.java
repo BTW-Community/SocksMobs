@@ -29,9 +29,7 @@ public class SocksMobsAddon extends BTWAddon {
 
         SMItems.initItems();
         EntityList.addMapping(EntityRooster.class, "Rooster", 700, 0xA1A1A1, 0xFF0000);
-
-        Color color = new Color(0xE4BCB9);
-
+        
         EntityList.addMapping(EntityColdPig.class, "ColdPig", 705, 0xA1A1A1, 0xFF0000);
         EntityList.addMapping(EntityWarmPig.class, "WarmPig", 706, 0xA1A1A1, 0xFF0000);
         EntityList.addMapping(EntityMuddyPig.class, "MuddyPig", 707, 0xA1A1A1, 0xFF0000);
