@@ -42,4 +42,12 @@ public class AnimalTextureManager {
     public static ResourceLocation getChickenTexture(String animalName, int subtype, int hunger) {
         return getAnimalTexture("chicken", animalName, ChickenType.values()[subtype], hunger);
     }
+
+    public static ResourceLocation getCowTexture(int subtype, int hunger) {
+        return getAnimalTexture("cow", CowType.values()[subtype], hunger);
+    }
+
+    public static ResourceLocation getCowTexture(int subtype, int hunger, Enum<?> extraState) {
+        return getAnimalTexture("cow", "cow", CowType.values()[subtype], hunger, extraState);
+    }
 }

@@ -39,6 +39,22 @@ public class AnimalTextureRegistry {
                 }
             }
         }
+
+        for (CowType subtype : CowType.values()) {
+            for (AnimalState state : AnimalState.values()) {
+                AnimalTextureKey key = setAnimalTextureKey("cow", subtype, state, null);
+                TEXTURE_CACHE.put(key, buildTexture("cow", subtype, state, null));
+
+            }
+        }
+
+        for (AnimalState state : AnimalState.values()) {
+            for (CowExtraState extraState : CowExtraState.values()) {
+                AnimalTextureKey key = setAnimalTextureKey("cow", CowType.DEFAULT, state, extraState);
+                TEXTURE_CACHE.put(key, buildTexture("cow", CowType.DEFAULT, state, extraState));
+            }
+        }
+
     }
 
     @NotNull
@@ -65,11 +81,18 @@ public class AnimalTextureRegistry {
             path.append("_").append(subtype.name().toLowerCase());
         }
 
-        //Muddy Pig has a wet and dry state
-        if (subtype != null && extraState != null
-                && animal.equalsIgnoreCase("pig") && subtype.name().equalsIgnoreCase("muddy"))
+        if (extraState != null)
         {
-            path.append("_").append(extraState.name().toLowerCase());
+            //Muddy Pig has a wet and dry state
+            if (animal.equalsIgnoreCase("pig") && subtype.name().equalsIgnoreCase("muddy"))
+            {
+                path.append("_").append(extraState.name().toLowerCase());
+            }
+
+            if (animal.equalsIgnoreCase("cow") && subtype.name().equalsIgnoreCase("default"))
+            {
+                path.append("_").append(extraState.name().toLowerCase());
+            }
         }
 
         if (state != null && !state.name().equalsIgnoreCase("normal")) {
@@ -78,7 +101,7 @@ public class AnimalTextureRegistry {
 
         path.append(".png");
 
-        System.out.println(path.toString());
+        if (animal.equalsIgnoreCase("cow")) System.out.println(path.toString());
 
         return new ResourceLocation(path.toString());
     }
