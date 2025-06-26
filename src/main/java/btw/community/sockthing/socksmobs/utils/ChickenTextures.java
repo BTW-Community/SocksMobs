@@ -67,8 +67,6 @@ public class ChickenTextures {
 //            }
         }
 
-        System.err.println("Missing Chicken texture for: subtype=" + subtype + ", hunger=" + hungerLevel + ", gender=" + gender + ", child=" + isChild);
-        System.err.println("Using default as fallback texture");
         return CHICKEN_TEXTURE; //fallback
     }
 }
