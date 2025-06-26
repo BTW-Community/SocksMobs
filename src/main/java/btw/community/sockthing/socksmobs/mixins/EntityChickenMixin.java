@@ -49,8 +49,8 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
 
     @Override
     public void preInitCreature() {
-        int type = this.worldObj.rand.nextInt(MobUtils.SPAWN_TYPE_CHANCE);
-        boolean shouldBeMale = this.worldObj.rand.nextInt(MobUtils.SPAWN_GENDER_CHANCE) == 0;
+        int type = this.worldObj.rand.nextInt(MobUtils.CHICKEN_SPAWN_TYPE_CHANCE);
+        boolean shouldBeMale = this.worldObj.rand.nextInt(MobUtils.CHICKEN_SPAWN_GENDER_CHANCE) == 0;
 
         setType(type);
 
@@ -147,8 +147,8 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
 
         this.resetMatingStateOfBothParents(targetMate);
 
-        int min = MobUtils.MIN_DELAY_TIME; // inclusive 30s
-        int max = MobUtils.MAX_DELAY_TIME; // exclusive 60s
+        int min = MobUtils.ROOSTER_MIN_DELAY_TIME; // inclusive 30s
+        int max = MobUtils.ROOSTER_MAX_DELAY_TIME; // exclusive 60s
         int delayTime = this.getRNG().nextInt(max - min) + min;
 
         EntityChicken thisObject = (EntityChicken)(Object)this;
@@ -162,7 +162,7 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
     public void handleBreedingInteraction(EntityChicken targetChicken, int delayTime) {
         EntityAnimalInterface target = (EntityAnimalInterface) targetChicken;
         if (isRooster((EntityChicken)target)) {
-            if (target.getAmount() <= MobUtils.MAX_BREED_AMOUNT) {
+            if (target.getAmount() <= MobUtils.ROOSTER_MAX_BREED_AMOUNT) {
                 target.setAmount(target.getAmount() + 1);
                 target.setDelayTimer(delayTime);
             }

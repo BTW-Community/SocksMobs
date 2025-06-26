@@ -47,8 +47,8 @@ public abstract class EntityEggMixin extends EntityThrowable {
     private boolean redirectSpawnEntity(World world, Entity entity) {
         if (entity instanceof EntityChicken chicken) {
             // modify chicken before spawning
-            ((EntityAnimalInterface) chicken).setType(this.worldObj.rand.nextInt(MobUtils.SPAWN_TYPE_CHANCE));
-            ((EntityAnimalInterface) chicken).setGender(this.worldObj.rand.nextInt(MobUtils.EGG_SPAWN_GENDER_CHANCE));
+            ((EntityAnimalInterface) chicken).setType(this.worldObj.rand.nextInt(MobUtils.CHICKEN_SPAWN_TYPE_CHANCE));
+            ((EntityAnimalInterface) chicken).setGender(this.worldObj.rand.nextInt(MobUtils.CHICKEN_EGG_SPAWN_GENDER_CHANCE));
         }
 
         return world.spawnEntityInWorld(entity);

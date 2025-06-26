@@ -9,21 +9,20 @@ public class MobUtils {
     public static final int DATA_DELAY_ID = 27;
     public static final int DATA_EXTRA_STATE_ID = 26;
 
-    public static final int SPAWN_TYPE_CHANCE = 3;
-    public static final int SPAWN_GENDER_CHANCE = 4;
-    public static final int EGG_SPAWN_GENDER_CHANCE = 2; //when spawning a baby chick from egg
-
-    public static final int MAX_BREED_AMOUNT = 4;
-    public static final int ROOSTER_CROW_CHANCE = 3;
-
+    //GENDER
     public static final int FEMALE = 0;
     public static final int MALE = 1;
 
-    public static final int MIN_DELAY_TIME = 600;
-    public static final int MAX_DELAY_TIME = 1200;
+    public static final int CHICKEN_SPAWN_TYPE_CHANCE = 3;
+    public static final int CHICKEN_SPAWN_GENDER_CHANCE = 4;
+    public static final int CHICKEN_EGG_SPAWN_GENDER_CHANCE = 2; //when spawning a baby chick from egg
 
-    public static final int NORMAL = 1;
-    public static final int COLD = 1;
-    public static final int WARM = 2;
+    public static final int ROOSTER_MAX_BREED_AMOUNT = 4;
+    public static final int ROOSTER_CROW_CHANCE = 3;
+
+    public static final int ROOSTER_MIN_DELAY_TIME = 600;
+    public static final int ROOSTER_MAX_DELAY_TIME = 1200;
+
+
 
 }
