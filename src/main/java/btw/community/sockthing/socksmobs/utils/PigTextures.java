@@ -45,42 +45,37 @@ public class PigTextures {
 
     public static ResourceLocation getPigTexture(int subtype, int hungerLevel, int extraState){
 
-        switch (subtype){
-            default:
-            case DEFAULT:
-                if (hungerLevel == FAMISHED) return PIG_FAMISHED_TEXTURE;
-                else if (hungerLevel == STARVING) return PIG_STARVING_TEXTURE;
-
-                return PIG_TEXTURE;
-            case MUDDY:
-                if (extraState == WET){
-                    if (hungerLevel == FAMISHED) return PIG_MUDDY_WET_FAMISHED_TEXTURE;
-                    else if (hungerLevel == STARVING) return PIG_MUDDY_WET_STARVING_TEXTURE;
-
-                    return PIG_MUDDY_WET_TEXTURE;
-                }
-                else{
-                    if (hungerLevel == FAMISHED) return PIG_MUDDY_DRY_FAMISHED_TEXTURE;
-                    else if (hungerLevel == STARVING) return PIG_MUDDY_DRY_STARVING_TEXTURE;
-
-                    return PIG_MUDDY_DRY_TEXTURE;
-                }
-
+        if (subtype == DEFAULT){
+            if (hungerLevel == NORMAL) return PIG_TEXTURE;
+            else if (hungerLevel == FAMISHED) return PIG_FAMISHED_TEXTURE;
+            else if (hungerLevel == STARVING) return PIG_STARVING_TEXTURE;
         }
+        else if (subtype == MUDDY){
+            if (extraState == DRY){
+                if (hungerLevel == NORMAL) return PIG_MUDDY_DRY_TEXTURE;
+                else if (hungerLevel == FAMISHED) return PIG_MUDDY_DRY_FAMISHED_TEXTURE;
+                else if (hungerLevel == STARVING) return PIG_MUDDY_DRY_STARVING_TEXTURE;
+            }
+            else if (extraState == WET) {
+                if (hungerLevel == NORMAL) return PIG_MUDDY_WET_TEXTURE;
+                else if (hungerLevel == FAMISHED) return PIG_MUDDY_WET_FAMISHED_TEXTURE;
+                else if (hungerLevel == STARVING) return PIG_MUDDY_WET_STARVING_TEXTURE;
+            }
+        }
+
+        return PIG_TEXTURE;
     }
 
     public static ResourceLocation getOverlayTexture(int hungerLevel, boolean wearingBreedingHarness, boolean isSaddled){
 
         //Breeding Harness Texture should override Saddle if both are the case
         if (wearingBreedingHarness) {
-            if (hungerLevel == FAMISHED) return PIG_BREEDING_HARNESS_FAMISHED_TEXTURE;
+            if (hungerLevel == NORMAL) return PIG_BREEDING_HARNESS_TEXTURE;
+            else if (hungerLevel == FAMISHED) return PIG_BREEDING_HARNESS_FAMISHED_TEXTURE;
             else if (hungerLevel == STARVING) return PIG_BREEDING_HARNESS_STARVING_TEXTURE;
-            return PIG_BREEDING_HARNESS_TEXTURE;
         }
-        if (isSaddled) {
-            return PIG_SADDLE_TEXTURE;
-        }
-        return null;
+        else if (isSaddled) return PIG_SADDLE_TEXTURE;
 
+        return null;
     }
 }
