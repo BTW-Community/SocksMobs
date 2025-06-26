@@ -4,6 +4,7 @@ import btw.community.sockthing.socksmobs.enums.WolfState;
 import btw.community.sockthing.socksmobs.enums.WolfType;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.utils.AnimalTextureManager;
+import btw.community.sockthing.socksmobs.utils.WolfTextures;
 import net.minecraft.src.EntityWolf;
 import net.minecraft.src.RenderWolf;
 import net.minecraft.src.ResourceLocation;
@@ -19,25 +20,7 @@ public class RenderWolfMixin {
     protected void getWolfTextures(EntityWolf wolf, CallbackInfoReturnable<ResourceLocation> cir) {
         int subtype = ((EntityAnimalInterface) wolf).getType();
 
-        if (wolf.isTamed()) {
-            if (wolf.isStarving()) {
-                cir.setReturnValue( AnimalTextureManager.getWolfTexture(subtype, WolfState.TAME_STARVING) );
-                cir.cancel();
-            }
-            cir.setReturnValue( AnimalTextureManager.getWolfTexture(subtype, WolfState.TAME) );
-            cir.cancel();
-        }
-        if (wolf.isAngry()) {
-            cir.setReturnValue( AnimalTextureManager.getWolfTexture(subtype, WolfState.ANGRY) );
-            cir.cancel();
-        }
-        if (wolf.isStarving() || wolf.hasAttackTarget()) {
-            cir.setReturnValue( AnimalTextureManager.getWolfTexture(subtype, WolfState.WILD_STARVING) );
-            cir.cancel();
-        }
-        cir.setReturnValue(wolf.isTamed() ? AnimalTextureManager.getWolfTexture(subtype, WolfState.TAME) :
-                (wolf.isAngry() ? AnimalTextureManager.getWolfTexture(subtype, WolfState.ANGRY) :
-                        AnimalTextureManager.getWolfTexture(subtype, WolfState.NORMAL)));
+        cir.setReturnValue(WolfTextures.getWolfTexture(subtype, wolf.isTamed(), wolf.isStarving(), wolf.isAngry(), wolf.hasAttackTarget()));
         cir.cancel();
     }
 }
