@@ -5,6 +5,7 @@ import btw.community.sockthing.socksmobs.enums.PigExtraState;
 import btw.community.sockthing.socksmobs.enums.PigType;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.utils.AnimalTextureManager;
+import btw.community.sockthing.socksmobs.utils.PigTextures;
 import com.prupe.mcpatcher.mob.MobOverlay;
 import net.minecraft.src.*;
 import org.lwjgl.opengl.GL11;
@@ -16,9 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(RenderPig.class)
 public abstract class RenderPigMixin extends RenderLiving {
-
-    private static final ResourceLocation SADDLE_TEXTURE = new ResourceLocation("socksmobs:textures/entity/pig/pig_saddle.png");
-    private static final ResourceLocation MR_PIG_TEXTURE = new ResourceLocation("socksmobs:textures/entity/pig/pig_breeding_harness.png");
 
     private final ModelBase PIG_RENDER_PASS_MODEL = new CustomPigModel();
 
@@ -36,12 +34,8 @@ public abstract class RenderPigMixin extends RenderLiving {
         int returnValue = -1;
 
         if (par2 == 0){
-            if (par1EntityPig.getSaddled()){
-                this.bindTexture(SADDLE_TEXTURE);
-                returnValue = 1;
-            }
-            if (par1EntityPig.getWearingBreedingHarness()){
-                this.bindTexture(MR_PIG_TEXTURE);
+            if (par1EntityPig.getSaddled() || par1EntityPig.getWearingBreedingHarness()){
+                this.bindTexture( PigTextures.getOverlayTexture(par1EntityPig.getHungerLevel(), par1EntityPig.getWearingBreedingHarness(), par1EntityPig.getSaddled()));
                 returnValue = 1;
             }
         }
@@ -59,7 +53,7 @@ public abstract class RenderPigMixin extends RenderLiving {
             extraState = ((EntityAnimalInterface) pig).getExtraState();
         }
 
-        cir.setReturnValue(AnimalTextureManager.getPigTexture(pigType, hungerLevel, PigExtraState.values()[extraState]));
+        cir.setReturnValue(PigTextures.getPigTexture(pigType, hungerLevel, extraState));
     }
 
     @Override
