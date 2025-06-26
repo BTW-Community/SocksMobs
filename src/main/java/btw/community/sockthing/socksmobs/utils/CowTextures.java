@@ -40,39 +40,34 @@ public class CowTextures {
 
     public static ResourceLocation getCowTexture(int subtype, int hungerLevel){
 
-        switch (subtype){
-            default:
-            case DEFAULT:
-                if (hungerLevel == FAMISHED) return COW_FAMISHED_TEXTURE;
-                else if (hungerLevel == STARVING) return COW_STARVING_TEXTURE;
-
-                return COW_TEXTURE;
-            case WHITE:
-                if (hungerLevel == FAMISHED) return COW_WHITE_FAMISHED_TEXTURE;
-                else if (hungerLevel == STARVING) return COW_WHITE_STARVING_TEXTURE;
-
-                return COW_WHITE_TEXTURE;
+        if (subtype == DEFAULT){
+            if (hungerLevel == NORMAL) return COW_TEXTURE;
+            else if (hungerLevel == FAMISHED) return COW_FAMISHED_TEXTURE;
+            else if (hungerLevel == STARVING) return COW_STARVING_TEXTURE;
         }
+
+        return COW_TEXTURE;
+
     }
 
     public static ResourceLocation getOverlayTexture(int hungerLevel, boolean gotMilk, boolean wearingBreedingHarness){
 
         if (gotMilk && wearingBreedingHarness) {
-            if (hungerLevel == FAMISHED) return COW_UDDER_BREEDING_HARNESS_FAMISHED_TEXTURE;
+            if (hungerLevel == NORMAL) return COW_UDDER_BREEDING_HARNESS_TEXTURE;
+            else if (hungerLevel == FAMISHED) return COW_UDDER_BREEDING_HARNESS_FAMISHED_TEXTURE;
             else if (hungerLevel == STARVING) return COW_UDDER_BREEDING_HARNESS_STARVING_TEXTURE;
-            return COW_UDDER_BREEDING_HARNESS_TEXTURE;
         }
         else if (gotMilk) {
-            if (hungerLevel == FAMISHED) return COW_UDDER_FAMISHED_TEXTURE;
+            if (hungerLevel == NORMAL) return COW_UDDER_TEXTURE;
+            else if (hungerLevel == FAMISHED) return COW_UDDER_FAMISHED_TEXTURE;
             else if (hungerLevel == STARVING) return COW_UDDER_STARVING_TEXTURE;
-            return COW_UDDER_TEXTURE;
         }
         else if (wearingBreedingHarness) {
-            if (hungerLevel == FAMISHED) return COW_BREEDING_HARNESS_FAMISHED_TEXTURE;
+            if (hungerLevel == NORMAL) return COW_BREEDING_HARNESS_TEXTURE;
+            else if (hungerLevel == FAMISHED) return COW_BREEDING_HARNESS_FAMISHED_TEXTURE;
             else if (hungerLevel == STARVING) return COW_BREEDING_HARNESS_STARVING_TEXTURE;
-            return COW_BREEDING_HARNESS_TEXTURE;
         }
-        else return null;
 
+        return COW_BREEDING_HARNESS_TEXTURE;
     }
 }
