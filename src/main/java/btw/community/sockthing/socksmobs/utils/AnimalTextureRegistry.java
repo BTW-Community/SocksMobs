@@ -55,6 +55,8 @@ public class AnimalTextureRegistry {
             }
         }
 
+
+
     }
 
     @NotNull
@@ -101,7 +103,7 @@ public class AnimalTextureRegistry {
 
         path.append(".png");
 
-        if (animal.equalsIgnoreCase("cow")) System.out.println(path.toString());
+//        if (animal.equalsIgnoreCase("cow")) System.out.println(path.toString());
 
         return new ResourceLocation(path.toString());
     }

@@ -5,6 +5,7 @@ import btw.community.sockthing.socksmobs.enums.CowExtraState;
 import btw.community.sockthing.socksmobs.enums.CowType;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.utils.AnimalTextureManager;
+import btw.community.sockthing.socksmobs.utils.CowTextures;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,7 +34,7 @@ public abstract class RenderCowMixin extends RenderLiving {
         int subtype = ((EntityAnimalInterface) cow).getType();
         int hungerLevel = cow.getHungerLevel();
 
-        cir.setReturnValue(AnimalTextureManager.getCowTexture(subtype, hungerLevel));
+        cir.setReturnValue(CowTextures.getCowTexture(subtype, hungerLevel));
         cir.cancel();
     }
 
@@ -45,7 +46,7 @@ public abstract class RenderCowMixin extends RenderLiving {
             EntityCow cow = (EntityCow)par1EntityLiving;
 
             if (cow.gotMilk() || cow.getWearingBreedingHarness()){
-                this.bindTexture( getOverlayTexture(cow, cow.gotMilk(), cow.getWearingBreedingHarness()) );
+                this.bindTexture( CowTextures.getOverlayTexture(cow.getHungerLevel(), cow.gotMilk(), cow.getWearingBreedingHarness()) );
                 returnValue = 1;
             }
         }
