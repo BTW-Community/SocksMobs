@@ -1,5 +1,7 @@
 package btw.community.sockthing.socksmobs.utils;
 
+import net.minecraft.src.ResourceLocation;
+
 public class MobUtils {
     // CHICKEN
     public static final int DATA_TYPE_ID = 31;
@@ -24,5 +26,6 @@ public class MobUtils {
     public static final int ROOSTER_MAX_DELAY_TIME = 1200;
 
 
+    public static final ResourceLocation NULL_TEXTURE = new ResourceLocation("socksmobs:textures/null.png");
 
 }

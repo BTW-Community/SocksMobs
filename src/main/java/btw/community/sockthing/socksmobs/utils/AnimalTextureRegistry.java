@@ -31,15 +31,6 @@ public class AnimalTextureRegistry {
             }
         }
 
-        for (PigType subtype : PigType.values()) {
-            for (AnimalState state : AnimalState.values()) {
-                for (PigExtraState extraState : PigExtraState.values()) {
-                    AnimalTextureKey key = setAnimalTextureKey("pig", subtype, state, extraState);
-                    TEXTURE_CACHE.put(key, buildTexture("pig", subtype, state, extraState));
-                }
-            }
-        }
-
         for (CowType subtype : CowType.values()) {
             for (AnimalState state : AnimalState.values()) {
                 AnimalTextureKey key = setAnimalTextureKey("cow", subtype, state, null);

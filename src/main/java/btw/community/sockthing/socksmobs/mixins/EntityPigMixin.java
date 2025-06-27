@@ -1,9 +1,9 @@
 package btw.community.sockthing.socksmobs.mixins;
 
 import btw.community.sockthing.socksmobs.enums.PigExtraState;
-import btw.community.sockthing.socksmobs.enums.PigType;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
+import btw.community.sockthing.socksmobs.utils.PigTextures;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,14 +27,25 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
     public void entityInit(CallbackInfo ci) {
         this.dataWatcher.addObject(MobUtils.DATA_TYPE_ID, (byte)0);
         this.dataWatcher.addObject(MobUtils.DATA_EXTRA_STATE_ID, (byte)0);
+
+        setType(PigTextures.DEFAULT);
     }
 
     @Override
-    public void preInitCreature() {
-//        BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
-//        if (isColdBiome(currentBiome)) setType(PigType.COLD.ordinal());
-//        else if (isWarmBiome(currentBiome)) setType(PigType.WARM.ordinal());
-//        else setType(PigType.DEFAULT.ordinal());
+    public EntityLivingData onSpawnWithEgg(EntityLivingData par1EntityLivingData) {
+
+        BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
+        if (isColdBiome(currentBiome)) setType(PigTextures.COLD);
+        else if (isWarmBiome(currentBiome)) setType(PigTextures.WARM);
+        else if (currentBiome == BiomeGenBase.swampland) setType(PigTextures.MUDDY);
+        else if (currentBiome == BiomeGenBase.forest) setType(PigTextures.MOTTLED);
+        else {
+            int[] types = {PigTextures.DEFAULT, PigTextures.SPOTTED };
+            int randomType = this.getRNG().nextInt( types.length );
+            setType( types[randomType] );
+        }
+
+        return super.onSpawnWithEgg(par1EntityLivingData);
     }
 
     private boolean isWarmBiome(BiomeGenBase biome) {
@@ -59,7 +70,7 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
         EntityPig thisPig = (EntityPig)(Object)this;
         EntityAnimalInterface pig = ((EntityAnimalInterface) thisPig);
 
-        if (!this.worldObj.isRemote && pig.getType() == PigType.MUDDY.ordinal()){
+        if (!this.worldObj.isRemote && pig.getType() == PigTextures.MUDDY ){
 
             boolean inWaterNow = this.isInWater();
             if (inWaterNow) {

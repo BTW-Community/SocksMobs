@@ -2,9 +2,7 @@ package btw.community.sockthing.socksmobs.mixins;
 
 import btw.community.sockthing.socksmobs.entities.models.CustomPigModel;
 import btw.community.sockthing.socksmobs.enums.PigExtraState;
-import btw.community.sockthing.socksmobs.enums.PigType;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
-import btw.community.sockthing.socksmobs.utils.AnimalTextureManager;
 import btw.community.sockthing.socksmobs.utils.PigTextures;
 import com.prupe.mcpatcher.mob.MobOverlay;
 import net.minecraft.src.*;
@@ -45,20 +43,12 @@ public abstract class RenderPigMixin extends RenderLiving {
 
     @Inject(method = "getPigTextures", at = @At(value = "HEAD"), cancellable = true)
     protected void getPigTextures(EntityPig pig, CallbackInfoReturnable<ResourceLocation> cir) {
-        int pigType = ((EntityAnimalInterface) pig).getType();
-        int hungerLevel = pig.getHungerLevel();
-        int extraState = 0;
-
-        if (pigType == PigType.MUDDY.ordinal()){
-            extraState = ((EntityAnimalInterface) pig).getExtraState();
-        }
-
-        cir.setReturnValue(PigTextures.getPigTexture(pigType, hungerLevel, extraState));
+        cir.setReturnValue(PigTextures.getPigTexture(pig));
     }
 
     @Override
     protected void renderEquippedItems(EntityLivingBase par1EntityLivingBase, float par2) {
-        if ( ((EntityAnimalInterface) par1EntityLivingBase).getType() == PigType.MUDDY.ordinal()
+        if ( ((EntityAnimalInterface) par1EntityLivingBase).getType() == PigTextures.MUDDY
             && ((EntityAnimalInterface) par1EntityLivingBase).getExtraState() == PigExtraState.WET.ordinal())
         {
             this.renderPigFlower((EntityPig)par1EntityLivingBase, par2);

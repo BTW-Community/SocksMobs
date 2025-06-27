@@ -6,21 +6,21 @@ import net.minecraft.src.EntityLivingData;
 import net.minecraft.src.EntityPig;
 import net.minecraft.src.World;
 
-public class EntityMottledPig extends EntityPig {
-    public EntityMottledPig(World par1World) {
+public class EntityDefaultPig extends EntityPig {
+    public EntityDefaultPig(World par1World) {
         super(par1World);
     }
 
     @Override
     protected void entityInit() {
         super.entityInit();
-        ((EntityAnimalInterface)this).setType(PigTextures.MOTTLED);
+        ((EntityAnimalInterface)this).setType(PigTextures.DEFAULT);
     }
 
     @Override
     public EntityLivingData onSpawnWithEgg(EntityLivingData par1EntityLivingData) {
         super.onSpawnWithEgg(par1EntityLivingData);
-        ((EntityAnimalInterface)this).setType(PigTextures.MOTTLED);
+        ((EntityAnimalInterface)this).setType(PigTextures.DEFAULT);
         return par1EntityLivingData;
     }
 }

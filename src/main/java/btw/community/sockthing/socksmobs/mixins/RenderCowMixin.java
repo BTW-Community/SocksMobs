@@ -41,14 +41,10 @@ public abstract class RenderCowMixin extends RenderLiving {
     @Inject(method = "shouldRenderPass", at = @At(value = "HEAD"), cancellable = true)
     public void shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3, CallbackInfoReturnable<Integer> cir) {
         int returnValue = -1;
-
-        if (par2 == 0){
-            EntityCow cow = (EntityCow)par1EntityLiving;
-
-            if (cow.gotMilk() || cow.getWearingBreedingHarness()){
-                this.bindTexture( CowTextures.getOverlayTexture(cow.getHungerLevel(), cow.gotMilk(), cow.getWearingBreedingHarness()) );
-                returnValue = 1;
-            }
+        EntityCow cow = (EntityCow)par1EntityLiving;
+        if (par2 == 0 && cow.gotMilk() || cow.getWearingBreedingHarness()){
+            this.bindTexture( CowTextures.getOverlayTexture(cow.getHungerLevel(), cow.gotMilk(), cow.getWearingBreedingHarness()) );
+            returnValue = 1;
         }
         cir.setReturnValue( returnValue );
         cir.cancel();

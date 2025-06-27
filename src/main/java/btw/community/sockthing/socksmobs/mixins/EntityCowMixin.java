@@ -1,11 +1,11 @@
 package btw.community.sockthing.socksmobs.mixins;
 
-import btw.community.sockthing.socksmobs.enums.PigExtraState;
-import btw.community.sockthing.socksmobs.enums.PigType;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
 import btw.entity.mob.KickingAnimal;
-import net.minecraft.src.*;
+import net.minecraft.src.EntityCow;
+import net.minecraft.src.NBTTagCompound;
+import net.minecraft.src.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

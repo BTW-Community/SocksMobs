@@ -28,12 +28,18 @@ public class SocksMobsAddon extends BTWAddon {
         AddonHandler.logMessage(this.getName() + " Version " + this.getVersionString() + " Initializing...");
 
         SMItems.initItems();
-        EntityList.addMapping(EntityRooster.class, "Rooster", 700, 0xA1A1A1, 0xFF0000);
-        
-        EntityList.addMapping(EntityColdPig.class, "ColdPig", 705, 0xA1A1A1, 0xFF0000);
-        EntityList.addMapping(EntityWarmPig.class, "WarmPig", 706, 0xA1A1A1, 0xFF0000);
-        EntityList.addMapping(EntityMuddyPig.class, "MuddyPig", 707, 0xA1A1A1, 0xFF0000);
-        EntityList.addMapping(EntityMottledPig.class, "MottledPig", 708, 0x50403c, 0x9c817c);
-        EntityList.addMapping(EntitySpottedPig.class, "SpottedPig", 709, 0xE4BCB9, 0x403939);
+        initSpawnerEggMappings();
+    }
+
+    private void initSpawnerEggMappings() {
+        EntityList.addMapping(EntityRooster.class, "socksmobs.rooster", 700, 0xf3ac60, 0xFF0000);
+
+        EntityList.entityEggs.remove(90); //Vanilla Pig Spawn Egg
+        EntityList.addMapping(EntityDefaultPig.class, "socksmobs.pig.default", 704, 15771042, 14377823);
+        EntityList.addMapping(EntityColdPig.class, "socksmobs.pig.cold", 705, 0xDFB886, 0xEADEBF);
+        EntityList.addMapping(EntityWarmPig.class, "socksmobs.pig.warm", 706, 0xB35A34, 0xCE7439);
+        EntityList.addMapping(EntityMuddyPig.class, "socksmobs.pig.muddy", 707, 15771042, 0x956B53);
+        EntityList.addMapping(EntityMottledPig.class, "socksmobs.pig.mottled", 708, 0x50403C, 0x9C817C);
+        EntityList.addMapping(EntitySpottedPig.class, "socksmobs.pig.spotted", 709, 0xE5B5B3, 0x746666);
     }
 }
