@@ -1,5 +1,6 @@
 item.socksmobs:unfertilized_egg.name=Unfertilized Egg
 
+entity.socksmobs.chicken.name=Chicken
 entity.socksmobs.rooster.name=Rooster
 
 entity.socksmobs.pig.default.name=Pig

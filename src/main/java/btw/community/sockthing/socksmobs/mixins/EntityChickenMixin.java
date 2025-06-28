@@ -1,12 +1,11 @@
 package btw.community.sockthing.socksmobs.mixins;
 
 import btw.community.sockthing.socksmobs.SocksMobsAddon;
-import btw.community.sockthing.socksmobs.entities.EntityRooster;
+import btw.community.sockthing.socksmobs.entities.chicken.EntityRooster;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.items.SMItems;
 import btw.community.sockthing.socksmobs.utils.ChickenUtils;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
-import btw.community.sockthing.socksmobs.utils.PigUtils;
 import btw.world.util.WorldUtils;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
@@ -63,11 +62,16 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
     public EntityLivingData onSpawnWithEgg(EntityLivingData par1EntityLivingData) {
         super.onSpawnWithEgg(par1EntityLivingData);
 
-        int[] types = {ChickenUtils.DEFAULT, ChickenUtils.DEFAULT, ChickenUtils.DARK };
+        int[] types = {
+                ChickenUtils.DEFAULT, ChickenUtils.DEFAULT,
+                ChickenUtils.DARK,
+                ChickenUtils.BROWN,
+                ChickenUtils.ORANGE,
+        };
         int randomType = this.getRNG().nextInt( types.length );
         this.setType( types[randomType] );
 
-        boolean shouldBeMale = this.getRNG().nextInt(MobUtils.CHICKEN_SPAWN_GENDER_CHANCE) == 0;
+        boolean shouldBeMale = this.getRNG().nextInt(ChickenUtils.CHICKEN_SPAWN_GENDER_CHANCE) == 0;
         EntityChicken thisObject = (EntityChicken)(Object)this;
         if (shouldBeMale || thisObject instanceof EntityRooster){
             this.setGender(MobUtils.MALE);
@@ -136,7 +140,7 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
         long currentTime = WorldUtils.getOverworldTimeServerOnly();
 
         if (isDawn(currentTime)){
-            if (currentTime % 50 == 0 && this.worldObj.rand.nextInt(MobUtils.ROOSTER_CROW_CHANCE) == 0) this.worldObj.playSoundAtEntity(this, SocksMobsAddon.ROOSTER_CROWING.sound(), this.getSoundVolume(), 1.0f); //this.rand.nextFloat() * 0.2f + 1.5f);
+            if (currentTime % 50 == 0 && this.worldObj.rand.nextInt(ChickenUtils.ROOSTER_CROW_CHANCE) == 0) this.worldObj.playSoundAtEntity(this, SocksMobsAddon.ROOSTER_CROWING.sound(), this.getSoundVolume(), 1.0f); //this.rand.nextFloat() * 0.2f + 1.5f);
         }
     }
 
@@ -153,8 +157,8 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
 
         this.resetMatingStateOfBothParents(targetMate);
 
-        int min = MobUtils.ROOSTER_MIN_DELAY_TIME; // inclusive 30s
-        int max = MobUtils.ROOSTER_MAX_DELAY_TIME; // exclusive 60s
+        int min = ChickenUtils.ROOSTER_MIN_DELAY_TIME; // inclusive 30s
+        int max = ChickenUtils.ROOSTER_MAX_DELAY_TIME; // exclusive 60s
         int delayTime = this.getRNG().nextInt(max - min) + min;
 
         EntityChicken thisObject = (EntityChicken)(Object)this;
@@ -168,7 +172,7 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
     public void handleBreedingInteraction(EntityChicken targetChicken, int delayTime) {
         EntityAnimalInterface target = (EntityAnimalInterface) targetChicken;
         if (isRooster((EntityChicken)target)) {
-            if (target.getAmount() <= MobUtils.ROOSTER_MAX_BREED_AMOUNT) {
+            if (target.getAmount() <= ChickenUtils.ROOSTER_MAX_BREED_AMOUNT) {
                 target.setAmount(target.getAmount() + 1);
                 target.setDelayTimer(delayTime);
             }

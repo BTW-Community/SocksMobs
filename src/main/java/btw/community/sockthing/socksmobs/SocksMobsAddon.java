@@ -2,7 +2,8 @@ package btw.community.sockthing.socksmobs;
 
 import btw.AddonHandler;
 import btw.BTWAddon;
-import btw.community.sockthing.socksmobs.entities.*;
+import btw.community.sockthing.socksmobs.entities.chicken.EntityDefaultChicken;
+import btw.community.sockthing.socksmobs.entities.chicken.EntityRooster;
 import btw.community.sockthing.socksmobs.entities.pig.*;
 import btw.community.sockthing.socksmobs.items.SMItems;
 import btw.util.sounds.AddonSoundRegistryEntry;
@@ -28,7 +29,9 @@ public class SocksMobsAddon extends BTWAddon {
     }
 
     private void initSpawnerEggMappings() {
-        EntityList.addMapping(EntityRooster.class, "socksmobs.rooster", 700, 0xf3ac60, 0xFF0000);
+        EntityList.entityEggs.remove(93); //Vanilla Chicken Spawn Egg
+        EntityList.addMapping(EntityDefaultChicken.class, "socksmobs.chicken", 700, 0xA1A1A1, 0xFF0000);
+        EntityList.addMapping(EntityRooster.class, "socksmobs.rooster", 701, 0xf3ac60, 0xFF0000);
 
         EntityList.entityEggs.remove(90); //Vanilla Pig Spawn Egg
         EntityList.addMapping(EntityDefaultPig.class, "socksmobs.pig.default", 704, 15771042, 14377823);

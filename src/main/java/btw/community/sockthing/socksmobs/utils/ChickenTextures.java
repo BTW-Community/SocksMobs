@@ -23,6 +23,14 @@ public class ChickenTextures {
     private static final ResourceLocation CHICKEN_DARK_FAMISHED_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/chicken_dark_famished.png");
     private static final ResourceLocation CHICKEN_DARK_STARVING_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/chicken_dark_starving.png");
 
+    private static final ResourceLocation CHICKEN_BROWN_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/chicken_brown.png");
+    private static final ResourceLocation CHICKEN_BROWN_FAMISHED_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/chicken_brown_famished.png");
+    private static final ResourceLocation CHICKEN_BROWN_STARVING_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/chicken_brown_starving.png");
+
+    private static final ResourceLocation CHICKEN_ORANGE_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/chicken_orange.png");
+    private static final ResourceLocation CHICKEN_ORANGE_FAMISHED_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/chicken_orange_famished.png");
+    private static final ResourceLocation CHICKEN_ORANGE_STARVING_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/chicken_orange_starving.png");
+
     public static final ResourceLocation ROOSTER_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster.png");
     public static final ResourceLocation ROOSTER_FAMISHED_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_famished.png");
     public static final ResourceLocation ROOSTER_STARVING_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_starving.png");
@@ -30,6 +38,14 @@ public class ChickenTextures {
     private static final ResourceLocation ROOSTER_DARK_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_dark.png");
     private static final ResourceLocation ROOSTER_DARK_FAMISHED_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_dark_famished.png");
     private static final ResourceLocation ROOSTER_DARK_STARVING_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_dark_starving.png");
+
+    private static final ResourceLocation ROOSTER_BROWN_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_brown.png");
+    private static final ResourceLocation ROOSTER_BROWN_FAMISHED_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_brown_famished.png");
+    private static final ResourceLocation ROOSTER_BROWN_STARVING_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_brown_starving.png");
+
+    private static final ResourceLocation ROOSTER_ORANGE_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_orange.png");
+    private static final ResourceLocation ROOSTER_ORANGE_FAMISHED_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_orange_famished.png");
+    private static final ResourceLocation ROOSTER_ORANGE_STARVING_TEXTURE = new ResourceLocation("socksmobs:textures/entity/chicken/rooster_orange_starving.png");
 
     public static ResourceLocation getBabyChickTexture(EntityChicken chicken){
         int subtype = ((EntityAnimalInterface) chicken).getType();
@@ -41,9 +57,19 @@ public class ChickenTextures {
             else if (hungerLevel == MobUtils.STARVING) return BABY_CHICK_STARVING_TEXTURE;
         }
         else if (subtype == ChickenUtils.DARK){
-            if (hungerLevel == MobUtils.NORMAL) return BABY_CHICK_DARK_TEXTURE;
-            else if (hungerLevel == MobUtils.FAMISHED) return BABY_CHICK_DARK_FAMISHED_TEXTURE;
-            else if (hungerLevel == MobUtils.STARVING) return BABY_CHICK_DARK_STARVING_TEXTURE;
+            if (hungerLevel == MobUtils.NORMAL) return CHICKEN_DARK_TEXTURE;
+            else if (hungerLevel == MobUtils.FAMISHED) return CHICKEN_DARK_FAMISHED_TEXTURE;
+            else if (hungerLevel == MobUtils.STARVING) return CHICKEN_DARK_STARVING_TEXTURE;
+        }
+        else if (subtype == ChickenUtils.BROWN){
+            if (hungerLevel == MobUtils.NORMAL) return CHICKEN_BROWN_TEXTURE;
+            else if (hungerLevel == MobUtils.FAMISHED) return CHICKEN_BROWN_FAMISHED_TEXTURE;
+            else if (hungerLevel == MobUtils.STARVING) return CHICKEN_BROWN_STARVING_TEXTURE;
+        }
+        else if (subtype == ChickenUtils.ORANGE){
+            if (hungerLevel == MobUtils.NORMAL) return CHICKEN_ORANGE_TEXTURE;
+            else if (hungerLevel == MobUtils.FAMISHED) return CHICKEN_ORANGE_FAMISHED_TEXTURE;
+            else if (hungerLevel == MobUtils.STARVING) return CHICKEN_ORANGE_STARVING_TEXTURE;
         }
 
         return MobUtils.NULL_TEXTURE;
@@ -63,6 +89,16 @@ public class ChickenTextures {
             else if (hungerLevel == MobUtils.FAMISHED) return CHICKEN_DARK_FAMISHED_TEXTURE;
             else if (hungerLevel == MobUtils.STARVING) return CHICKEN_DARK_STARVING_TEXTURE;
         }
+        else if (subtype == ChickenUtils.BROWN){
+            if (hungerLevel == MobUtils.NORMAL) return CHICKEN_BROWN_TEXTURE;
+            else if (hungerLevel == MobUtils.FAMISHED) return CHICKEN_BROWN_FAMISHED_TEXTURE;
+            else if (hungerLevel == MobUtils.STARVING) return CHICKEN_BROWN_STARVING_TEXTURE;
+        }
+        else if (subtype == ChickenUtils.ORANGE){
+            if (hungerLevel == MobUtils.NORMAL) return CHICKEN_ORANGE_TEXTURE;
+            else if (hungerLevel == MobUtils.FAMISHED) return CHICKEN_ORANGE_FAMISHED_TEXTURE;
+            else if (hungerLevel == MobUtils.STARVING) return CHICKEN_ORANGE_STARVING_TEXTURE;
+        }
 
         return MobUtils.NULL_TEXTURE;
     }
@@ -80,6 +116,16 @@ public class ChickenTextures {
             if (hungerLevel == MobUtils.NORMAL) return ROOSTER_DARK_TEXTURE;
             else if (hungerLevel == MobUtils.FAMISHED) return ROOSTER_DARK_FAMISHED_TEXTURE;
             else if (hungerLevel == MobUtils.STARVING) return ROOSTER_DARK_STARVING_TEXTURE;
+        }
+        else if (subtype == ChickenUtils.BROWN){
+            if (hungerLevel == MobUtils.NORMAL) return ROOSTER_BROWN_TEXTURE;
+            else if (hungerLevel == MobUtils.FAMISHED) return ROOSTER_BROWN_FAMISHED_TEXTURE;
+            else if (hungerLevel == MobUtils.STARVING) return ROOSTER_BROWN_STARVING_TEXTURE;
+        }
+        else if (subtype == ChickenUtils.ORANGE){
+            if (hungerLevel == MobUtils.NORMAL) return ROOSTER_ORANGE_TEXTURE;
+            else if (hungerLevel == MobUtils.FAMISHED) return ROOSTER_ORANGE_FAMISHED_TEXTURE;
+            else if (hungerLevel == MobUtils.STARVING) return ROOSTER_ORANGE_STARVING_TEXTURE;
         }
 
         return MobUtils.NULL_TEXTURE;

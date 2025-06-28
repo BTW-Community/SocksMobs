@@ -1,11 +1,10 @@
 package btw.community.sockthing.socksmobs.mixins;
 
-import btw.community.sockthing.socksmobs.entities.*;
+import btw.community.sockthing.socksmobs.entities.chicken.EntityRooster;
 import btw.community.sockthing.socksmobs.entities.models.CustomChickenModel;
 import btw.community.sockthing.socksmobs.entities.models.CustomCowModel;
 import btw.community.sockthing.socksmobs.entities.models.CustomPigModel;
 import btw.community.sockthing.socksmobs.entities.renderer.*;
-import btw.community.sockthing.socksmobs.utils.PigTextures;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
