@@ -17,11 +17,18 @@ public abstract class RenderChickenMixin {
     @Inject(method = "getChickenTextures", at = @At(value = "HEAD"), cancellable = true)
     protected void getTextures(EntityChicken chicken, CallbackInfoReturnable<ResourceLocation> cir) {
         if (!chicken.isChild()){
-            cir.setReturnValue(ChickenTextures.getChickenTexture(chicken));
+            if ( ((EntityAnimalInterface) chicken).getGender() == MobUtils.MALE) {
+                cir.setReturnValue(ChickenTextures.getRoosterTexture(chicken));
+            }
+            else {
+                cir.setReturnValue(ChickenTextures.getChickenTexture(chicken));
+            }
             cir.cancel();
         }
         else {
             cir.setReturnValue(ChickenTextures.getBabyChickTexture(chicken));
+            cir.cancel();
+
         }
     }
 }

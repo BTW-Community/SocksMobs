@@ -4,7 +4,9 @@ import btw.community.sockthing.socksmobs.SocksMobsAddon;
 import btw.community.sockthing.socksmobs.entities.EntityRooster;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.items.SMItems;
+import btw.community.sockthing.socksmobs.utils.ChickenUtils;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
+import btw.community.sockthing.socksmobs.utils.PigUtils;
 import btw.world.util.WorldUtils;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
@@ -48,20 +50,6 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
     // --- Init --- //
 
     @Override
-    public void preInitCreature() {
-        int type = this.worldObj.rand.nextInt(MobUtils.CHICKEN_SPAWN_TYPE_CHANCE);
-        boolean shouldBeMale = this.worldObj.rand.nextInt(MobUtils.CHICKEN_SPAWN_GENDER_CHANCE) == 0;
-
-        setType(type);
-
-        EntityChicken thisObject = (EntityChicken)(Object)this;
-        if (shouldBeMale || thisObject instanceof EntityRooster){
-            this.setGender(MobUtils.MALE);
-        }
-        else this.setGender(MobUtils.FEMALE);
-    }
-
-    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(MobUtils.DATA_TYPE_ID, (byte)0);
@@ -69,6 +57,24 @@ public abstract class EntityChickenMixin extends EntityAnimal implements EntityA
         this.dataWatcher.addObject(MobUtils.DATA_PREGNANT_ID, (byte)0);
         this.dataWatcher.addObject(MobUtils.DATA_AMOUNT_ID, (byte)0);
         this.dataWatcher.addObject(MobUtils.DATA_DELAY_ID, 0);
+    }
+
+    @Override
+    public EntityLivingData onSpawnWithEgg(EntityLivingData par1EntityLivingData) {
+        super.onSpawnWithEgg(par1EntityLivingData);
+
+        int[] types = {ChickenUtils.DEFAULT, ChickenUtils.DEFAULT, ChickenUtils.DARK };
+        int randomType = this.getRNG().nextInt( types.length );
+        this.setType( types[randomType] );
+
+        boolean shouldBeMale = this.getRNG().nextInt(MobUtils.CHICKEN_SPAWN_GENDER_CHANCE) == 0;
+        EntityChicken thisObject = (EntityChicken)(Object)this;
+        if (shouldBeMale || thisObject instanceof EntityRooster){
+            this.setGender(MobUtils.MALE);
+        }
+        else this.setGender(MobUtils.FEMALE);
+
+        return par1EntityLivingData;
     }
 
     // --- Breeding --- //
