@@ -37,5 +37,6 @@ public class SocksMobsAddon extends BTWAddon {
         EntityList.addMapping(EntityMuddyPig.class, "socksmobs.pig.muddy", 707, 15771042, 0x956B53);
         EntityList.addMapping(EntityMottledPig.class, "socksmobs.pig.mottled", 708, 0x50403C, 0x9C817C);
         EntityList.addMapping(EntitySpottedPig.class, "socksmobs.pig.spotted", 709, 0xE5B5B3, 0x746666);
+        EntityList.addMapping(EntityPalePig.class, "socksmobs.pig.pale", 709, 0xD3A0A0, 0xDFC2C1);
     }
 }

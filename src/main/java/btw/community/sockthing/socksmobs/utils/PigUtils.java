@@ -12,4 +12,5 @@ public class PigUtils extends MobUtils {
     public static final int MUDDY = 3;
     public static final int MOTTLED = 4;
     public static final int SPOTTED = 5;
+    public static final int PALE = 6;
 }

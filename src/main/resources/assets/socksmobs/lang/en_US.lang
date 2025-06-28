@@ -1,8 +1,10 @@
 item.socksmobs:unfertilized_egg.name=Unfertilized Egg
 
 entity.socksmobs.rooster.name=Rooster
+entity.socksmobs.pig.default.name=Pig
 entity.socksmobs.pig.cold.name=Cold Pig
 entity.socksmobs.pig.warm.name=Warm Pig
 entity.socksmobs.pig.muddy.name=Muddy Pig
 entity.socksmobs.pig.mottled.name=Mottled Pig
 entity.socksmobs.pig.spotted.name=Spotted Pig
+entity.socksmobs.pig.pale.name=Pale Pig

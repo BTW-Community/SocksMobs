@@ -48,6 +48,11 @@ public class PigTextures {
     public static final ResourceLocation PIG_SPOTTED_FAMISHED_TEXTURE = new ResourceLocation("socksmobs:textures/entity/pig/pig_spotted_famished.png");
     public static final ResourceLocation PIG_SPOTTED_STARVING_TEXTURE = new ResourceLocation("socksmobs:textures/entity/pig/pig_spotted_starving.png");
 
+    //PALE
+    private static final ResourceLocation PIG_PALE_TEXTURE = new ResourceLocation("socksmobs:textures/entity/pig/pig_pale.png");
+    private static final ResourceLocation PIG_PALE_FAMISHED_TEXTURE = new ResourceLocation("socksmobs:textures/entity/pig/pig_pale_famished.png");
+    private static final ResourceLocation PIG_PALE_STARVING_TEXTURE = new ResourceLocation("socksmobs:textures/entity/pig/pig_pale_starving.png");
+
     public static ResourceLocation getPigTexture(EntityPig pig){
         int subtype = ((EntityAnimalInterface) pig).getType();
         int hungerLevel = pig.getHungerLevel();
@@ -83,13 +88,16 @@ public class PigTextures {
             if (hungerLevel == MobUtils.NORMAL) return PIG_MOTTLED_TEXTURE;
             else if (hungerLevel == MobUtils.FAMISHED) return PIG_MOTTLED_FAMISHED_TEXTURE;
             else if (hungerLevel == MobUtils.STARVING) return PIG_MOTTLED_STARVING_TEXTURE;
-
         }
         else if (subtype == PigUtils.SPOTTED){
             if (hungerLevel == MobUtils.NORMAL) return PIG_SPOTTED_TEXTURE;
             else if (hungerLevel == MobUtils.FAMISHED) return PIG_SPOTTED_FAMISHED_TEXTURE;
             else if (hungerLevel == MobUtils.STARVING) return PIG_SPOTTED_STARVING_TEXTURE;
-
+        }
+        else if (subtype == PigUtils.PALE){
+            if (hungerLevel == MobUtils.NORMAL) return PIG_PALE_TEXTURE;
+            else if (hungerLevel == MobUtils.FAMISHED) return PIG_PALE_FAMISHED_TEXTURE;
+            else if (hungerLevel == MobUtils.STARVING) return PIG_PALE_STARVING_TEXTURE;
         }
 
         return MobUtils.NULL_TEXTURE;

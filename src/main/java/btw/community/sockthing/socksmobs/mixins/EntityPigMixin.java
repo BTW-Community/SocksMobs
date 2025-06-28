@@ -39,7 +39,7 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
         else if (currentBiome == BiomeGenBase.swampland) setType(PigUtils.MUDDY);
         else if (currentBiome == BiomeGenBase.forest) setType(PigUtils.MOTTLED);
         else {
-            int[] types = {PigUtils.DEFAULT, PigUtils.SPOTTED };
+            int[] types = {PigUtils.DEFAULT, PigUtils.DEFAULT, PigUtils.SPOTTED, PigUtils.PALE};
             int randomType = this.getRNG().nextInt( types.length );
             setType( types[randomType] );
         }
