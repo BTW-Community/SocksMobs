@@ -3,14 +3,10 @@ package btw.community.sockthing.socksmobs;
 import btw.AddonHandler;
 import btw.BTWAddon;
 import btw.community.sockthing.socksmobs.entities.*;
+import btw.community.sockthing.socksmobs.entities.pig.*;
 import btw.community.sockthing.socksmobs.items.SMItems;
 import btw.util.sounds.AddonSoundRegistryEntry;
-import btw.util.sounds.BTWSoundManager;
-import com.prupe.mcpatcher.cc.ColorizeItem;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
-
-import java.awt.*;
 
 public class SocksMobsAddon extends BTWAddon {
     private static SocksMobsAddon instance;

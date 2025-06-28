@@ -1,9 +1,8 @@
 package btw.community.sockthing.socksmobs.mixins;
 
-import btw.community.sockthing.socksmobs.enums.PigExtraState;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
-import btw.community.sockthing.socksmobs.utils.PigTextures;
+import btw.community.sockthing.socksmobs.utils.PigUtils;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,19 +27,19 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
         this.dataWatcher.addObject(MobUtils.DATA_TYPE_ID, (byte)0);
         this.dataWatcher.addObject(MobUtils.DATA_EXTRA_STATE_ID, (byte)0);
 
-        setType(PigTextures.DEFAULT);
+        setType(PigUtils.DEFAULT);
     }
 
     @Override
     public EntityLivingData onSpawnWithEgg(EntityLivingData par1EntityLivingData) {
 
         BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords((int) this.posX, (int) this.posZ);
-        if (isColdBiome(currentBiome)) setType(PigTextures.COLD);
-        else if (isWarmBiome(currentBiome)) setType(PigTextures.WARM);
-        else if (currentBiome == BiomeGenBase.swampland) setType(PigTextures.MUDDY);
-        else if (currentBiome == BiomeGenBase.forest) setType(PigTextures.MOTTLED);
+        if (isColdBiome(currentBiome)) setType(PigUtils.COLD);
+        else if (isWarmBiome(currentBiome)) setType(PigUtils.WARM);
+        else if (currentBiome == BiomeGenBase.swampland) setType(PigUtils.MUDDY);
+        else if (currentBiome == BiomeGenBase.forest) setType(PigUtils.MOTTLED);
         else {
-            int[] types = {PigTextures.DEFAULT, PigTextures.SPOTTED };
+            int[] types = {PigUtils.DEFAULT, PigUtils.SPOTTED };
             int randomType = this.getRNG().nextInt( types.length );
             setType( types[randomType] );
         }
@@ -70,24 +69,24 @@ public abstract class EntityPigMixin extends EntityAnimal implements EntityAnima
         EntityPig thisPig = (EntityPig)(Object)this;
         EntityAnimalInterface pig = ((EntityAnimalInterface) thisPig);
 
-        if (!this.worldObj.isRemote && pig.getType() == PigTextures.MUDDY ){
+        if (!this.worldObj.isRemote && pig.getType() == PigUtils.MUDDY ){
 
             boolean inWaterNow = this.isInWater();
             if (inWaterNow) {
-                if (pig.getExtraState() == PigExtraState.DRY.ordinal()) {
-                    pig.setExtraState(PigExtraState.WET.ordinal());
+                if (pig.getExtraState() == PigUtils.DRY) {
+                    pig.setExtraState(PigUtils.WET);
                 }
 
                 this.dryingTimer = 5200; // Reset drying timer while in water
             } else {
                 // Only start drying logic if pig was in water previously and now is not
-                if (pig.getExtraState() == PigExtraState.WET.ordinal()) {
+                if (pig.getExtraState() == PigUtils.WET) {
                     if (this.dryingTimer > 0) {
                         --this.dryingTimer;
                     }
 
                     if (this.dryingTimer == 0) {
-                        pig.setExtraState(PigExtraState.DRY.ordinal());
+                        pig.setExtraState(PigUtils.DRY);
                     }
                 }
             }

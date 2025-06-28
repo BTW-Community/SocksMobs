@@ -1,9 +1,9 @@
 package btw.community.sockthing.socksmobs.mixins;
 
 import btw.community.sockthing.socksmobs.entities.models.CustomPigModel;
-import btw.community.sockthing.socksmobs.enums.PigExtraState;
 import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.utils.PigTextures;
+import btw.community.sockthing.socksmobs.utils.PigUtils;
 import com.prupe.mcpatcher.mob.MobOverlay;
 import net.minecraft.src.*;
 import org.lwjgl.opengl.GL11;
@@ -47,11 +47,11 @@ public abstract class RenderPigMixin extends RenderLiving {
     }
 
     @Override
-    protected void renderEquippedItems(EntityLivingBase par1EntityLivingBase, float par2) {
-        if ( ((EntityAnimalInterface) par1EntityLivingBase).getType() == PigTextures.MUDDY
-            && ((EntityAnimalInterface) par1EntityLivingBase).getExtraState() == PigExtraState.WET.ordinal())
+    protected void renderEquippedItems(EntityLivingBase entity, float par2) {
+        if ( ((EntityAnimalInterface) entity).getType() == PigUtils.MUDDY
+            && ((EntityAnimalInterface) entity).getExtraState() == PigUtils.WET)
         {
-            this.renderPigFlower((EntityPig)par1EntityLivingBase, par2);
+            this.renderPigFlower((EntityPig)entity, par2);
         }
     }
 
