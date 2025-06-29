@@ -1,4 +1,5 @@
 item.socksmobs:unfertilized_egg.name=Unfertilized Egg
+item.socksmobs.wolf_armor_leather.name=Leather Wolf Armor
 
 entity.socksmobs.chicken.name=Chicken
 entity.socksmobs.rooster.name=Rooster

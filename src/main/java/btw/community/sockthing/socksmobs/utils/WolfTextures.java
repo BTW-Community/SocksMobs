@@ -2,9 +2,14 @@ package btw.community.sockthing.socksmobs.utils;
 
 import btw.community.sockthing.socksmobs.enums.WolfState;
 import btw.community.sockthing.socksmobs.enums.WolfType;
+import btw.community.sockthing.socksmobs.items.SMItems;
+import net.minecraft.src.EntityWolf;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.ResourceLocation;
 
 public class WolfTextures {
+    //ARMOR
+    private static final ResourceLocation WOLF_ARMOR_LEATHER_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_leather.png");
 
     //DEFAULT
     private static final ResourceLocation WOLF_TEXTURE = new ResourceLocation("textures/entity/wolf/wolf.png");
@@ -147,5 +152,13 @@ public class WolfTextures {
         else if (subtype == WOODS) return WOLF_WOODS_TEXTURE;
 
         return WOLF_TEXTURE;
+    }
+
+    public static ResourceLocation getWolfArmorTexture(EntityWolf wolf) {
+       ItemStack currentArmor = wolf.getCurrentItemOrArmor(3);
+       if (currentArmor.itemID == SMItems.wolfArmorLeather.itemID){
+           return WOLF_ARMOR_LEATHER_TEXTURE;
+       }
+       else return null;
     }
 }

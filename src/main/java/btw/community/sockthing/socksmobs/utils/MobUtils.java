@@ -13,6 +13,7 @@ public class MobUtils {
     public static final int DATA_DELAY_ID = 27;
     public static final int DATA_EXTRA_STATE_ID = 26;
 
+    public static final int DATA_ARMOR_ID = 25;
     //HUNGER STATES
     public static final int NORMAL = 0;
     public static final int FAMISHED = 1;
@@ -21,5 +22,4 @@ public class MobUtils {
     //GENDER
     public static final int FEMALE = 0;
     public static final int MALE = 1;
-
 }
