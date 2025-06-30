@@ -1,5 +1,6 @@
 package btw.community.sockthing.socksmobs.mixins;
 
+import btw.community.sockthing.socksmobs.items.item.WolfArmorItem;
 import btw.entity.mob.DireWolfEntity;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,15 +36,55 @@ public abstract class DireWolfEntityMixin extends EntityCreature  {
         ci.cancel();
     }
 
+    @Override
+    public void onDeath(DamageSource damageSource) {
+        super.onDeath(damageSource);
+        if (!this.worldObj.isRemote && this.getCurrentItemOrArmor(3) != null) {
+            this.entityDropItem(this.getCurrentItemOrArmor(3).copy(), 0f);
+        }
+    }
+
     protected void checkForCatchFireInSun() {
         ItemStack headStack;
         int iBlockBelowID;
         Block blockBelow;
         float fBrightness;
-        if (!(this.worldObj.isRemote || !this.worldObj.isDaytime() || this.worldObj.isRainingAtPos((int)this.posX, (int)this.posY, (int)this.posZ) || this.isChild() || this.inWater || !((fBrightness = this.getBrightness(1.0f)) > 0.5f) || !(this.rand.nextFloat() * 30.0f < (fBrightness - 0.4f) * 2.0f) || !this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY + (double)this.getEyeHeight()), MathHelper.floor_double(this.posZ)) || (blockBelow = Block.blocksList[iBlockBelowID = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY - (double)0.1f), MathHelper.floor_double(this.posZ))]) != null && blockBelow.blockMaterial == Material.water
-                || (headStack = this.getCurrentItemOrArmor(3)) != null  //changed from 4 helmet to 3 chest
-                || this.hasHeadCrabbedSquid())) {
-            this.setFire(8);
+
+        if (!this.worldObj.isRemote){
+            if (!this.worldObj.isDaytime() || this.worldObj.isRainingAtPos((int)this.posX, (int)this.posY, (int)this.posZ) || this.isChild() || this.inWater || !((fBrightness = this.getBrightness(1.0f)) > 0.5f) || !(this.rand.nextFloat() * 30.0f < (fBrightness - 0.4f) * 2.0f) || !this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY + (double)this.getEyeHeight()), MathHelper.floor_double(this.posZ)) || (blockBelow = Block.blocksList[iBlockBelowID = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY - (double)0.1f), MathHelper.floor_double(this.posZ))]) != null && blockBelow.blockMaterial == Material.water || this.hasHeadCrabbedSquid()) {
+                if (this.getCurrentItemOrArmor(3) != null){
+                    this.isImmuneToFire = true;
+                    this.setFire(8);
+                    // deflect fire damage to wolf armor
+                    if (this.worldObj.rand.nextInt(20) == 0){
+                        damageArmor(3);
+                        this.playSound("mob.horse.leather", 0.5f, 1.0f);
+                    }
+                }
+                else {
+                    this.isImmuneToFire = false;
+                    this.setFire(8);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void damageArmor(float par1) {
+        this.damageArmorPiece(par1);
+    }
+
+    public void damageArmorPiece(float par1) {
+        DireWolfEntity thisWolf = (DireWolfEntity)(Object)this;
+        if ((par1 /= 4.0f) < 1.0f) {
+            par1 = 1.0f;
+        }
+        for (int var2 = 0; var2 < 5; ++var2) {
+            if (thisWolf.getCurrentItemOrArmor(var2) == null || !(thisWolf.getCurrentItemOrArmor(var2).getItem() instanceof WolfArmorItem)) continue;
+            thisWolf.getCurrentItemOrArmor(var2).damageItem((int)par1, thisWolf);
+            if (thisWolf.getCurrentItemOrArmor(var2).stackSize != 0) continue;
+            this.playSound("mob.horse.armor", 0.5f, 1.0f);
+            thisWolf.setCurrentItemOrArmor(var2, null);
         }
     }
 
