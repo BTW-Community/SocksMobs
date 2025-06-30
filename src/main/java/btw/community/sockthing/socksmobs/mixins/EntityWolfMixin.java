@@ -5,12 +5,14 @@ import btw.community.sockthing.socksmobs.interfaces.EntityAnimalInterface;
 import btw.community.sockthing.socksmobs.items.SMItems;
 import btw.community.sockthing.socksmobs.items.item.WolfArmorItem;
 import btw.community.sockthing.socksmobs.utils.MobUtils;
+import btw.entity.mob.DireWolfEntity;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(EntityWolf.class)
 public abstract class EntityWolfMixin extends EntityTameable implements EntityAnimalInterface {
@@ -56,8 +58,34 @@ public abstract class EntityWolfMixin extends EntityTameable implements EntityAn
         else return WolfType.BLACK;
     }
 
+    @Inject(
+            method = "transformToDire",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/src/World;spawnEntityInWorld(Lnet/minecraft/src/Entity;)Z",
+                    shift = At.Shift.BEFORE
+            ),
+            locals = LocalCapture.CAPTURE_FAILHARD
+    )
+    public void transformToDire(CallbackInfo ci, int x, int y, int z, DireWolfEntity direWolf) {
+        ItemStack wolfArmor = this.getCurrentItemOrArmor(CHEST_SLOT);
+        if (wolfArmor != null){
+            direWolf.setCurrentItemOrArmor(CHEST_SLOT, wolfArmor.copy());
+        }
+    }
+
+    @Inject(method = "onRottenFleshEaten", at = @At(value = "HEAD"), cancellable = true)
+    public void onRottenFleshEaten(CallbackInfo ci) {
+        EntityWolf thisWolf = (EntityWolf)(Object)this;
+        if (thisWolf.infectionCountdown < 0) {
+//            thisWolf.infectionCountdown = 12000 + this.rand.nextInt(12000);
+            thisWolf.infectionCountdown = 100;
+        }
+    }
+
+
     @Override
-    protected void giveBirthAtTargetLocation(EntityAnimal targetMate, double dChildX, double dChildY, double dChildZ) {
+    public void giveBirthAtTargetLocation(EntityAnimal targetMate, double dChildX, double dChildY, double dChildZ) {
         int nestSize = this.getNestSize();
         for (int nestTempCount = 0; nestTempCount < nestSize; ++nestTempCount) {
             EntityAgeable childEntity = this.createChild(targetMate);
@@ -102,7 +130,7 @@ public abstract class EntityWolfMixin extends EntityTameable implements EntityAn
     }
 
     @Override
-    protected void damageArmor(float par1) {
+    public void damageArmor(float par1) {
         this.damageArmorPiece(par1);
     }
 

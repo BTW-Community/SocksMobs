@@ -3,6 +3,9 @@ package btw.community.sockthing.socksmobs.utils;
 import btw.community.sockthing.socksmobs.enums.WolfState;
 import btw.community.sockthing.socksmobs.enums.WolfType;
 import btw.community.sockthing.socksmobs.items.SMItems;
+import btw.community.sockthing.socksmobs.mixins.DireWolfRendererMixin;
+import btw.entity.mob.DireWolfEntity;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityWolf;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ResourceLocation;
@@ -154,7 +157,7 @@ public class WolfTextures {
         return WOLF_TEXTURE;
     }
 
-    public static ResourceLocation getWolfArmorTexture(EntityWolf wolf) {
+    public static ResourceLocation getWolfArmorTexture(EntityLiving wolf) {
        ItemStack currentArmor = wolf.getCurrentItemOrArmor(3);
        if (currentArmor.itemID == SMItems.wolfArmorLeather.itemID){
            return WOLF_ARMOR_LEATHER_TEXTURE;

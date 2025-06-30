@@ -5,10 +5,7 @@ import btw.entity.attribute.BTWAttributes;
 import btw.entity.attribute.CustomDisplayAttributeModifier;
 import btw.item.items.ArmorItemMod;
 import com.google.common.collect.Multimap;
-import net.minecraft.src.AttributeModifier;
-import net.minecraft.src.EnumArmorMaterial;
-import net.minecraft.src.Item;
-import net.minecraft.src.SharedMonsterAttributes;
+import net.minecraft.src.*;
 
 import java.util.UUID;
 
@@ -45,6 +42,7 @@ public class WolfArmorItem extends Item {
         this.setInfernalMaxNumEnchants(2);
         this.setBuoyant();
         this.setIncineratedInCrucible();
+        this.setCreativeTab(CreativeTabs.tabCombat);
 
         this.armorType = armorType;
         this.armorWeight = weight;
