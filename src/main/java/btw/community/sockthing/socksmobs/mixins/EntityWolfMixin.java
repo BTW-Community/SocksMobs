@@ -74,14 +74,14 @@ public abstract class EntityWolfMixin extends EntityTameable implements EntityAn
         }
     }
 
-    @Inject(method = "onRottenFleshEaten", at = @At(value = "HEAD"), cancellable = true)
-    public void onRottenFleshEaten(CallbackInfo ci) {
-        EntityWolf thisWolf = (EntityWolf)(Object)this;
-        if (thisWolf.infectionCountdown < 0) {
-//            thisWolf.infectionCountdown = 12000 + this.rand.nextInt(12000);
-            thisWolf.infectionCountdown = 100;
-        }
-    }
+//    @Inject(method = "onRottenFleshEaten", at = @At(value = "HEAD"), cancellable = true)
+//    public void onRottenFleshEaten(CallbackInfo ci) {
+//        EntityWolf thisWolf = (EntityWolf)(Object)this;
+//        if (thisWolf.infectionCountdown < 0) {
+////            thisWolf.infectionCountdown = 12000 + this.rand.nextInt(12000);
+//            thisWolf.infectionCountdown = 100;
+//        }
+//    }
 
 
     @Override
