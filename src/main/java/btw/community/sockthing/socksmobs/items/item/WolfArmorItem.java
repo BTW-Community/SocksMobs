@@ -19,12 +19,11 @@ public class WolfArmorItem extends Item {
     //copied and modified from horse {0, 5, 7, 11} //none, iron, gold, diamond
     public static final int[] armorValues = new int[]{0, 3, 4, 5, 11, 20}; //none, wool, leather, iron, gold, diamond, steel
 
-    public static final int WOOL = 1;
-    public static final int LEATHER = 2;
-    public static final int IRON = 3;
-    public static final int GOLD = 4;
-    public static final int DIAMOND = 5;
-    public static final int STEEL = 6;
+    public static final int LEATHER = 1;
+    public static final int IRON = 2;
+    public static final int GOLD = 3;
+    public static final int DIAMOND = 4;
+    public static final int STEEL = 5;
 
     public final int armorType;
     protected final int armorWeight;
@@ -32,23 +31,52 @@ public class WolfArmorItem extends Item {
     public int damageReduceAmount;
     public static int armorMaterial;
 
-    public WolfArmorItem(int iItemID, EnumArmorMaterial enumArmorMaterial, int armorMaterial, int armorType, int weight, double knockbackResistance) {
+    public WolfArmorItem(int iItemID, EnumArmorMaterial enumArmorMaterial, int armorMaterial, int armorType, int weight, double knockbackResistance, int infernatMaxCost, int infernatlMaxEnchants) {
         super(iItemID);
         this.setMaxStackSize(1);
         this.setMaxDamage(enumArmorMaterial.getDurability(armorType));
-        this.setMaxDamage(this.getMaxDamage() >> 2); //wool
-//        this.setMaxDamage(this.getMaxDamage() << 1); //tanned leather
-        this.setInfernalMaxEnchantmentCost(10);
-        this.setInfernalMaxNumEnchants(2);
+        this.setMaxDamage(this.modifyMaxDamage(armorMaterial));
+//        this.setMaxDamage(); //tanned leather
+        this.setInfernalMaxEnchantmentCost(infernatMaxCost);
+        this.setInfernalMaxNumEnchants(infernatlMaxEnchants);
         this.setBuoyant();
         this.setIncineratedInCrucible();
         this.setCreativeTab(CreativeTabs.tabCombat);
+
+        this.setUnlocalizedName("socksmobs.wolf_armor_" + this.getType(armorMaterial));
+        this.setTextureName("socksmobs:wolf_armor_"  + this.getType(armorMaterial));
 
         this.armorType = armorType;
         this.armorWeight = weight;
         this.knockbackResistance = knockbackResistance;
         this.damageReduceAmount = enumArmorMaterial.getDamageReductionAmount(armorType);
         this.armorMaterial = armorMaterial;
+    }
+
+    private int modifyMaxDamage(int armorMaterial) {
+        // this.getMaxDamage() >> 2; //wool durability
+        switch (armorMaterial){
+            case LEATHER: return this.getMaxDamage() << 1; // tanned leather;
+//            case IRON: return 0;
+//            case GOLD: return 0;
+//            case DIAMOND: return 0;
+//            case STEEL: return 0;
+        }
+
+        return this.getMaxDamage();
+    }
+
+    private String getType(int armorMaterial) {
+
+        switch (armorMaterial){
+            case LEATHER: return "leather";
+            case IRON: return "iron";
+            case GOLD: return "gold";
+            case DIAMOND: return "diamond";
+            case STEEL: return "steel";
+        }
+
+        return "missing";
     }
 
     @Override

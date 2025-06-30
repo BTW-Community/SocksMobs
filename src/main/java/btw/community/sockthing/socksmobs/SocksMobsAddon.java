@@ -6,6 +6,7 @@ import btw.community.sockthing.socksmobs.entities.chicken.EntityDefaultChicken;
 import btw.community.sockthing.socksmobs.entities.chicken.EntityRooster;
 import btw.community.sockthing.socksmobs.entities.pig.*;
 import btw.community.sockthing.socksmobs.items.SMItems;
+import btw.community.sockthing.socksmobs.recipes.SMRecipes;
 import btw.util.sounds.AddonSoundRegistryEntry;
 import net.minecraft.src.*;
 
@@ -25,6 +26,8 @@ public class SocksMobsAddon extends BTWAddon {
         AddonHandler.logMessage(this.getName() + " Version " + this.getVersionString() + " Initializing...");
 
         SMItems.initItems();
+        SMRecipes.initRecipes();
+
         initSpawnerEggMappings();
     }
 
