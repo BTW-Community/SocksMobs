@@ -168,10 +168,10 @@ public abstract class EntityWolfMixin extends EntityTameable implements EntityAn
     @Inject(method = "attemptUseStackOn", at = @At(value = "HEAD"), cancellable = true)
     public void applyArmor(EntityPlayer player, ItemStack playerStack, CallbackInfoReturnable<Boolean> cir) {
         EntityWolf thisWolf = (EntityWolf)(Object)this;
-        if (playerStack.itemID == SMItems.wolfArmorLeather.itemID && thisWolf.isTamed() ) {
+        if (playerStack.getItem() instanceof WolfArmorItem && thisWolf.isTamed() ) {
             if (!this.worldObj.isRemote) {
                 if (!this.isWearingArmor()){
-                    this.playSound("mob.horse.armor", 0.5f, 1.0f);
+                    this.playSound("mob.horse.leather", 0.5f, 1.0f);
                     this.setCurrentItemOrArmor(CHEST_SLOT, playerStack.copy());
                     cir.setReturnValue(true);
                     cir.cancel();

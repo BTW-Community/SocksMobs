@@ -41,7 +41,7 @@ public class WolfArmorItem extends Item {
         this.setInfernalMaxNumEnchants(infernatlMaxEnchants);
         this.setBuoyant();
         this.setIncineratedInCrucible();
-        this.setCreativeTab(CreativeTabs.tabCombat);
+        this.setCreativeTab(CreativeTabs.tabMisc);
 
         this.setUnlocalizedName("socksmobs.wolf_armor_" + this.getType(armorMaterial));
         this.setTextureName("socksmobs:wolf_armor_"  + this.getType(armorMaterial));

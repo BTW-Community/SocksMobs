@@ -13,6 +13,10 @@ import net.minecraft.src.ResourceLocation;
 public class WolfTextures {
     //ARMOR
     private static final ResourceLocation WOLF_ARMOR_LEATHER_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_leather.png");
+    private static final ResourceLocation WOLF_ARMOR_IRON_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_iron.png");
+    private static final ResourceLocation WOLF_ARMOR_GOLD_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_gold.png");
+    private static final ResourceLocation WOLF_ARMOR_DIAMOND_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_diamond.png");
+    private static final ResourceLocation WOLF_ARMOR_STEEL_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_steel.png");
 
     //DEFAULT
     private static final ResourceLocation WOLF_TEXTURE = new ResourceLocation("textures/entity/wolf/wolf.png");
@@ -159,9 +163,10 @@ public class WolfTextures {
 
     public static ResourceLocation getWolfArmorTexture(EntityLiving wolf) {
        ItemStack currentArmor = wolf.getCurrentItemOrArmor(3);
-       if (currentArmor.itemID == SMItems.wolfArmorLeather.itemID){
-           return WOLF_ARMOR_LEATHER_TEXTURE;
-       }
-       else return null;
+       if (currentArmor.itemID == SMItems.wolfArmorIron.itemID) return WOLF_ARMOR_IRON_TEXTURE;
+       else if (currentArmor.itemID == SMItems.wolfArmorGold.itemID) return WOLF_ARMOR_GOLD_TEXTURE;
+       else if (currentArmor.itemID == SMItems.wolfArmorDiamond.itemID) return WOLF_ARMOR_DIAMOND_TEXTURE;
+       else if (currentArmor.itemID == SMItems.wolfArmorSteel.itemID) return WOLF_ARMOR_STEEL_TEXTURE;
+       else return WOLF_ARMOR_LEATHER_TEXTURE;
     }
 }

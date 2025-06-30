@@ -58,7 +58,7 @@ public abstract class DireWolfEntityMixin extends EntityCreature  {
                     // deflect fire damage to wolf armor
                     if (this.worldObj.rand.nextInt(20) == 0){
                         damageArmor(3);
-                        this.playSound("mob.horse.leather", 0.5f, 1.0f);
+//                        this.playSound("mob.horse.leather", 0.5f, 1.0f);
                     }
                 }
                 else {
