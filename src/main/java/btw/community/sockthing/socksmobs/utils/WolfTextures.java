@@ -1,22 +1,20 @@
 package btw.community.sockthing.socksmobs.utils;
 
-import btw.community.sockthing.socksmobs.enums.WolfState;
-import btw.community.sockthing.socksmobs.enums.WolfType;
 import btw.community.sockthing.socksmobs.items.SMItems;
-import btw.community.sockthing.socksmobs.mixins.DireWolfRendererMixin;
-import btw.entity.mob.DireWolfEntity;
 import net.minecraft.src.EntityLiving;
-import net.minecraft.src.EntityWolf;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ResourceLocation;
 
 public class WolfTextures {
+
+    public static final ResourceLocation WOLF_COLLAR_TEXTURES = new ResourceLocation("textures/entity/wolf/wolf_collar.png");
+
     //ARMOR
-    private static final ResourceLocation WOLF_ARMOR_LEATHER_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_leather.png");
-    private static final ResourceLocation WOLF_ARMOR_IRON_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_iron.png");
-    private static final ResourceLocation WOLF_ARMOR_GOLD_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_gold.png");
-    private static final ResourceLocation WOLF_ARMOR_DIAMOND_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_diamond.png");
-    private static final ResourceLocation WOLF_ARMOR_STEEL_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/wolf_armor_steel.png");
+    private static final ResourceLocation WOLF_ARMOR_LEATHER_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/armor/wolf_armor_leather.png");
+    private static final ResourceLocation WOLF_ARMOR_IRON_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/armor/wolf_armor_iron.png");
+    private static final ResourceLocation WOLF_ARMOR_GOLD_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/armor/wolf_armor_gold.png");
+    private static final ResourceLocation WOLF_ARMOR_DIAMOND_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/armor/wolf_armor_diamond.png");
+    private static final ResourceLocation WOLF_ARMOR_STEEL_TEXTURE = new ResourceLocation("socksmobs:textures/entity/wolf/armor/wolf_armor_steel.png");
 
     //DEFAULT
     private static final ResourceLocation WOLF_TEXTURE = new ResourceLocation("textures/entity/wolf/wolf.png");
