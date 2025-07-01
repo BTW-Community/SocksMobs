@@ -21,7 +21,7 @@ public class SMItems {
     private static final int WOLF_ARMOR_STEEL_ID = 4004; //TODO: CHECK ID's
 
     public static void initItems(){
-        unfertilizedEgg = new UnfertilizedEggItem(UNFERTILIZED_EGG_ID - 256, "socksmobs:unfertilized_egg");
+        unfertilizedEgg = new UnfertilizedEggItem(UNFERTILIZED_EGG_ID - 256);
 
         wolfArmorLeather = new WolfArmorItem(WOLF_ARMOR_LEATHER_ID - 256, EnumArmorMaterial.CLOTH, WolfArmorItem.LEATHER,
                 1, 0, 0, 10, 2);

@@ -5,12 +5,13 @@ import btw.item.items.ThrowableItem;
 import net.minecraft.src.*;
 
 public class UnfertilizedEggItem extends ThrowableItem {
-    public UnfertilizedEggItem(int itemID, String name) {
+    public UnfertilizedEggItem(int itemID) {
         super(itemID);
         this.maxStackSize = 16;
         this.setIncineratedInCrucible();
         this.setFilterableProperties(2);
-        this.setUnlocalizedName(name);
+        this.setUnlocalizedName("socksmobs.unfertilized_egg");
+        this.setTextureName("socksmobs:unfertilized_egg");
         this.setCreativeTab(CreativeTabs.tabFood);
     }
 
