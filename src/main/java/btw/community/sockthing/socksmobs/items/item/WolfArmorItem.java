@@ -55,15 +55,15 @@ public class WolfArmorItem extends Item {
 
     private int modifyMaxDamage(int armorMaterial) {
         // this.getMaxDamage() >> 2; //wool durability
-        switch (armorMaterial){
-            case LEATHER: return this.getMaxDamage() << 1; // tanned leather;
+//        switch (armorMaterial){
+//            case LEATHER: return this.getMaxDamage() << 1; // tanned leather;
 //            case IRON: return 0;
 //            case GOLD: return 0;
 //            case DIAMOND: return 0;
 //            case STEEL: return 0;
-        }
+//        }
 
-        return this.getMaxDamage();
+        return this.getMaxDamage() / 2;
     }
 
     private String getType(int armorMaterial) {

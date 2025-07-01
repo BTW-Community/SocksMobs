@@ -143,6 +143,7 @@ public abstract class EntityWolfMixin extends EntityTameable implements EntityAn
             if (thisWolf.getCurrentItemOrArmor(var2) == null || !(thisWolf.getCurrentItemOrArmor(var2).getItem() instanceof WolfArmorItem)) continue;
             thisWolf.getCurrentItemOrArmor(var2).damageItem((int)par1, thisWolf);
             if (thisWolf.getCurrentItemOrArmor(var2).stackSize != 0) continue;
+            this.playSound("random.break", 1.0f, 1.0f);
             thisWolf.setCurrentItemOrArmor(var2, null);
         }
     }

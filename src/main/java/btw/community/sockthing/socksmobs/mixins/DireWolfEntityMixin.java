@@ -43,6 +43,40 @@ public abstract class DireWolfEntityMixin extends EntityCreature  {
             this.entityDropItem(this.getCurrentItemOrArmor(3).copy(), 0f);
         }
     }
+    //Vanilla 1.6.4 code
+//    protected void checkForSun(){
+//        if (this.worldObj.isDaytime() && !this.worldObj.isRemote && !this.isChild())
+//        {
+//            float var1 = this.getBrightness(1.0F);
+//
+//            if (var1 > 0.5F && this.rand.nextFloat() * 30.0F < (var1 - 0.4F) * 2.0F && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)))
+//            {
+//                boolean var2 = true;
+//                ItemStack var3 = this.getCurrentItemOrArmor(3);
+//
+//                if (var3 != null)
+//                {
+//                    if (var3.isItemStackDamageable())
+//                    {
+//                        var3.setItemDamage(var3.getItemDamageForDisplay() + this.rand.nextInt(2));
+//
+//                        if (var3.getItemDamageForDisplay() >= var3.getMaxDamage())
+//                        {
+//                            this.renderBrokenItemStack(var3);
+//                            this.setCurrentItemOrArmor(3, (ItemStack)null);
+//                        }
+//                    }
+//
+//                    var2 = false;
+//                }
+//
+//                if (var2)
+//                {
+//                    this.setFire(8);
+//                }
+//            }
+//        }
+//    }
 
     protected void checkForCatchFireInSun() {
         ItemStack headStack;
@@ -56,8 +90,8 @@ public abstract class DireWolfEntityMixin extends EntityCreature  {
                     this.isImmuneToFire = true;
                     this.setFire(8);
                     // deflect fire damage to wolf armor
-                    if (this.worldObj.rand.nextInt(20) == 0){
-                        damageArmor(3);
+                    if (this.worldObj.rand.nextInt(2) == 0){
+                        damageArmor(1);
 //                        this.playSound("mob.horse.leather", 0.5f, 1.0f);
                     }
                 }

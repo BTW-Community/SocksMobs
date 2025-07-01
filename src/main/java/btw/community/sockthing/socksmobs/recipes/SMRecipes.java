@@ -9,6 +9,8 @@ import net.minecraft.src.ItemStack;
 public class SMRecipes {
     public static void initRecipes() {
         addWolfArmor();
+        addCauldronRecipes();
+        addCrucibleRecipes();
     }
 
     private static void addWolfArmor() {
@@ -29,9 +31,9 @@ public class SMRecipes {
         };
 
         Item[] strapMaterial = new Item[]{
-                BTWItems.leatherStrap,
-                BTWItems.leatherStrap,
-                BTWItems.leatherStrap,
+                BTWItems.cutTannedLeather,
+                BTWItems.cutTannedLeather,
+                BTWItems.cutTannedLeather,
                 BTWItems.diamondArmorPlate,
                 BTWItems.steelArmorPlate
         };
@@ -45,5 +47,16 @@ public class SMRecipes {
                     'B', BTWItems.belt
             });
         }
+    }
+
+    private static void addCauldronRecipes() {
+        RecipeManager.addStokedCauldronRecipe(new ItemStack(BTWItems.glue, 4), new ItemStack[]{new ItemStack(SMItems.wolfArmorLeather)});
+    }
+
+    private static void addCrucibleRecipes() {
+        RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.ironNugget, 18), new ItemStack[]{new ItemStack(SMItems.wolfArmorIron)});
+        RecipeManager.addStokedCrucibleRecipe(new ItemStack(Item.goldNugget, 18), new ItemStack[]{new ItemStack(SMItems.wolfArmorGold)});
+        RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.diamondIngot, 5), new ItemStack[]{new ItemStack(SMItems.wolfArmorDiamond)});
+        RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.soulforgedSteelIngot, 5), new ItemStack[]{new ItemStack(SMItems.wolfArmorSteel)});
     }
 }
